@@ -1,10 +1,12 @@
 import Link from "next/link";
+import "../../styles/global.css";
 
 export default function Home() {
   return (
     <>
-      <h1>Home</h1>
-      <Link href="/dashboard">Dashboard</Link>
+      <div className="bg-blue-500 text-white p-4">
+        SBC - Sínodo Brasil Central
+      </div>
     </>
   );
 }
