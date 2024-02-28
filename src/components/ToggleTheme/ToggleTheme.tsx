@@ -1,22 +1,36 @@
 "use client";
-import React, { useState } from "react";
-import Sun from "@/icons/Sun";
-import Moon from "@/icons/Moon";
+import React from "react";
+import { SunIcon } from "@heroicons/react/24/outline";
+import { MoonIcon } from "@heroicons/react/24/solid";
+import { useTheme } from "next-themes";
 
 interface Props {}
 const ToggleTheme: React.FC<Props> = () => {
-  const [theme, setTheme] = useState("light");
+  const { systemTheme, theme, setTheme } = useTheme();
 
-  return (
-    <div
-      className="h-6 w-6 cursor-pointer"
-      onClick={() => {
-        setTheme(theme === "light" ? "dark" : "light");
-      }}
-    >
-      {theme === "light" ? <Sun /> : <Moon />}
-    </div>
-  );
+  const renderThemeChanger = () => {
+    const currentTheme = theme === "system" ? systemTheme : theme;
+
+    if (currentTheme === "dark") {
+      return (
+        <SunIcon
+          className="w-6 h-6"
+          role="button"
+          onClick={() => setTheme("light")}
+        />
+      );
+    } else {
+      return (
+        <MoonIcon
+          className="w-6 h-6"
+          role="button"
+          onClick={() => setTheme("dark")}
+        />
+      );
+    }
+  };
+
+  return <>{renderThemeChanger()}</>;
 };
 
 export default ToggleTheme;

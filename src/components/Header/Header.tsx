@@ -1,7 +1,5 @@
 "use client";
-import React, { useEffect, useMemo } from "react";
-import Sun from "@/icons/Sun";
-import Moon from "@/icons/Moon";
+import React from "react";
 import LogoSinodal from "@/icons/LogoSinodal";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
