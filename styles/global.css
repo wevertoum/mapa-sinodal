@@ -33,6 +33,10 @@
   border-radius: 4px;
 }
 
+.light .border-bottom-animation::before {
+  background-color: black;
+}
+
 .border-bottom-animation:hover::before {
   width: 100%;
 }

@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
-import { SunIcon } from "@heroicons/react/24/outline";
-import { MoonIcon } from "@heroicons/react/24/solid";
+import { SunIcon, MoonIcon, Bars3Icon } from "@heroicons/react/24/outline";
 import { useTheme } from "next-themes";
 
 interface Props {}
@@ -22,7 +21,7 @@ const ToggleTheme: React.FC<Props> = () => {
     } else {
       return (
         <MoonIcon
-          className="w-6 h-6"
+          className="w-6 h-6 text-stone-800"
           role="button"
           onClick={() => setTheme("dark")}
         />
