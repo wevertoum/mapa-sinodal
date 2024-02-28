@@ -2,14 +2,14 @@ import Link from "next/link";
 
 interface CityProps {
   params: {
-    city: string;
+    id_camping: string;
   };
 }
 
 export default function City({ params }: CityProps) {
   return (
     <>
-      <h1>City {params.city}</h1>
+      <h1>id_camping {params.id_camping}</h1>
       <Link href="/">Home</Link>
     </>
   );
