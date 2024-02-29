@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { SunIcon, MoonIcon, Bars3Icon } from "@heroicons/react/24/outline";
+import { SunIcon, MoonIcon } from "@heroicons/react/24/outline";
 import { useTheme } from "next-themes";
 
 interface Props {}

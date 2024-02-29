@@ -15,8 +15,8 @@ const openSans = Open_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Mapa Sinodal",
-  description: "Mapa do Sínodo Brasil Central",
+  title: "Portal Sinodal Brasil Central",
+  description: "Um portal sobre as UMPs da Sinodal Brasil Central",
 };
 
 export default function RootLayout({

@@ -1,12 +1,12 @@
 import Link from "next/link";
 
-interface CityProps {
+interface CampingPageProps {
   params: {
     id_camping: string;
   };
 }
 
-export default function City({ params }: CityProps) {
+export default function CampingPage({ params }: CampingPageProps) {
   return (
     <>
       <h1>id_camping {params.id_camping}</h1>

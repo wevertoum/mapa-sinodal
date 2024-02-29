@@ -1,8 +1,8 @@
 import Link from "next/link";
 
-interface CityProps {}
+interface CampingsPageProps {}
 
-export default function City({}: CityProps) {
+export default function CampingsPage({}: CampingsPageProps) {
   const campings = [
     {
       name: "Camping 1",
@@ -21,9 +21,6 @@ export default function City({}: CityProps) {
           <h1 className="max-w-3xl text-center font-bold text-gray-900 dark:text-white text-5xl leading-tight">
             CAMPINGS PAGE
           </h1>
-          <p className="text-lg font-medium  text-gray-900 dark:text-white">
-            AQUI É A HOME PAGE
-          </p>
         </div>
       </div>
       {campings.map((camping) => (
