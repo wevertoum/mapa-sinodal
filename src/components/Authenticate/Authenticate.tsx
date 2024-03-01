@@ -2,9 +2,10 @@ import React from "react";
 import signUp from "@/firebase/signup";
 import signIn from "@/firebase/signin";
 import useCustomError from "@/hooks/useCustomError";
+import { UserCredential } from "firebase/auth";
 
 interface Props {
-  onFinish: () => void;
+  onFinish: (data: UserCredential | null) => void;
   method: "signIn" | "signUp";
 }
 
@@ -26,7 +27,7 @@ const Authenticate: React.FC<Props> = ({ onFinish, method }) => {
   const handleForm = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const targetFunction = authFunctions[method];
-    const { error } = await targetFunction(email, password);
+    const { result, error } = await targetFunction(email, password);
     if (error) {
       showError(
         `Erro ao ${
@@ -35,7 +36,7 @@ const Authenticate: React.FC<Props> = ({ onFinish, method }) => {
       );
       return;
     }
-    return onFinish();
+    return onFinish(result);
   };
 
   return (

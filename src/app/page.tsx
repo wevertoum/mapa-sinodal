@@ -1,5 +1,3 @@
-// import appConfig from "@/config/appConfig";
-
 export default function Home() {
   return (
     <div className="flex flex-col items-center justify-center space-y-10 mt-28">
