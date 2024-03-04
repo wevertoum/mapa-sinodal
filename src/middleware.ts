@@ -4,7 +4,7 @@ import getCookie from "./actions/getCookie";
 const protedctedPrefix = "/protected";
 
 export default async function middleware(req: NextRequest) {
-  const tokenUser = await getCookie("userData");
+  const tokenUser = await getCookie("userToken");
   if (!tokenUser && req.url.includes(protedctedPrefix)) {
     const absoluteUrl = new URL("/signin", req.nextUrl.origin);
     return NextResponse.redirect(absoluteUrl.toString());

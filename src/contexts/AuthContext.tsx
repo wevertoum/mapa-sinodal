@@ -21,7 +21,7 @@ export const AuthContextWrapper: React.FC<Props> = ({ children }) => {
 
   const saveToken = useCallback(
     async (token: string) => {
-      saveCookie("userData", token)
+      saveCookie("userToken", token)
         .then(() => {
           router.push("/protected/dashboard");
           setToken(token);
@@ -34,9 +34,10 @@ export const AuthContextWrapper: React.FC<Props> = ({ children }) => {
   );
 
   const getToken = useCallback(async () => {
-    const t = await getCookie("userData");
-    console.log("AuthContextWrapper getToken", t);
-    setToken(t);
+    const t = await getCookie("userToken");
+    if (t) {
+      setToken(t);
+    }
   }, []);
 
   useEffect(() => {
