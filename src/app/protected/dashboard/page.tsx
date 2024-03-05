@@ -11,20 +11,13 @@ interface AdminDashboardPageProps {
 export default function AdminDashboardPage({
   params,
 }: AdminDashboardPageProps) {
-  const { token } = useAuthContext();
+  const { userData } = useAuthContext();
 
   return (
     <>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec dui asda dsa sda sda dsas dasd asd asd asd asd asd asd asd asd asd asda sdasd asd asd asd asd
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec dui
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec dui
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec dui
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec dui
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec dui
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec dui
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec dui
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec dui
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec dui
+      bem vindo ao painel {userData?.email}
+      <br />
+      seu token: {userData?.token}
     </>
   );
 }

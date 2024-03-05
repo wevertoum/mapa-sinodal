@@ -17,14 +17,14 @@ interface Props {
 }
 export const AuthContextWrapper: React.FC<Props> = ({ children }) => {
   const router = useRouter();
-  const [token, setToken] = useState<string>();
+  const [userData, setUserData] = useState<Models.UserData>();
 
-  const saveToken = useCallback(
-    async (token: string) => {
-      saveCookie("userToken", token)
+  const saveUserData = useCallback(
+    async (userData: Models.UserData) => {
+      saveCookie("userData", JSON.stringify(userData))
         .then(() => {
           router.push("/protected/dashboard");
-          setToken(token);
+          setUserData(userData);
         })
         .catch((error) => {
           throw new Error(error);
@@ -34,9 +34,9 @@ export const AuthContextWrapper: React.FC<Props> = ({ children }) => {
   );
 
   const getToken = useCallback(async () => {
-    const t = await getCookie("userToken");
-    if (t) {
-      setToken(t);
+    const u = await getCookie("userData");
+    if (u) {
+      setUserData(JSON.parse(u));
     }
   }, []);
 
@@ -46,7 +46,7 @@ export const AuthContextWrapper: React.FC<Props> = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ token, saveToken }}>
+    <AuthContext.Provider value={{ userData, saveUserData }}>
       {children}
     </AuthContext.Provider>
   );

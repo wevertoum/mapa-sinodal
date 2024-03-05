@@ -1,6 +1,11 @@
 namespace Models {
   interface UserContext {
-    token?: string;
-    saveToken: (token: string) => void;
+    userData?: UserData;
+    saveUserData: (userData: UserData) => void;
+  }
+
+  interface UserData {
+    email: string;
+    token: string;
   }
 }
