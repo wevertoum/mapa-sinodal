@@ -21,7 +21,7 @@ export default function CampsPage({ params }: CampsPageProps) {
   // const [camp, { set, update, remove, hasResult, isEmpty, path, ref }] =
   //   useDocument<Camp>("camps/qf4VXBJjfY6CuUgRgBTG");
 
-  const [camps, { add }] = useCollection<Camp>("camps");
+  const [camps, { add, remove }] = useCollection<Camp>("camps");
 
   const addCamp = useCallback(async (camp: Camp) => {
     try {
@@ -43,23 +43,36 @@ export default function CampsPage({ params }: CampsPageProps) {
   };
 
   return (
-    <>
-      <h1>Acampamentos</h1>
+    <div className="flex flex-col space-y-4 w-[800px]">
       {camps?.map((camp) => (
-        <div key={camp.id}>
-          <h2>{camp.nome}</h2>
-          <p>Data: {camp.data}</p>
-          <p>Vagas: {camp.vagas}</p>
+        <div
+          key={camp.id}
+          className="border rounded-lg p-4 mb-4 flex justify-between items-center"
+        >
+          <div>
+            <h2 className="text-xl font-bold">{camp.nome}</h2>
+            <p className="text-gray-600">Data: {camp.data}</p>
+            <p className="text-gray-600">Vagas: {camp.vagas}</p>
+          </div>
+          <button
+            onClick={() => remove(camp.id)}
+            className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400"
+          >
+            Remove
+          </button>
         </div>
       ))}
       <br />
-      <form onSubmit={handleAddCamp}>
+      <br />
+      <br />
+      <form onSubmit={handleAddCamp} className="flex flex-col space-y-4">
         <input
           type="text"
           value={nome}
           onChange={(e) => setNome(e.target.value)}
           placeholder="Nome do Acampamento"
           required
+          className="border rounded-md p-2"
         />
         <input
           type="text"
@@ -67,6 +80,7 @@ export default function CampsPage({ params }: CampsPageProps) {
           onChange={(e) => setData(e.target.value)}
           placeholder="Data"
           required
+          className="border rounded-md p-2"
         />
         <input
           type="number"
@@ -74,9 +88,15 @@ export default function CampsPage({ params }: CampsPageProps) {
           onChange={(e) => setVagas(e.target.value)}
           placeholder="Vagas"
           required
+          className="border rounded-md p-2"
         />
-        <button type="submit">Adicionar Acampamento</button>
+        <button
+          type="submit"
+          className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+        >
+          Adicionar Acampamento
+        </button>
       </form>
-    </>
+    </div>
   );
 }
