@@ -2,14 +2,14 @@ import Link from "next/link";
 
 interface CampingPageProps {
   params: {
-    id_camping: string;
+    id_camp: string;
   };
 }
 
 export default function CampingPage({ params }: CampingPageProps) {
   return (
     <>
-      <h1>id_camping {params.id_camping}</h1>
+      <h1>id_camp {params.id_camp}</h1>
       <Link href="/">Home</Link>
     </>
   );

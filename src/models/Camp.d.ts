@@ -11,8 +11,9 @@ namespace Models {
   interface Bedroom {
     id: string;
     id_camp: string;
+    id_accommodation: string;
     visibleNumber: number;
-    capacity: number;
+    capacity: string;
     members: string[];
     gender: "M" | "F";
   }

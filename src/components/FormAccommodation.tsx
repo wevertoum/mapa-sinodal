@@ -8,7 +8,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { RegisterCampSchema } from "@/schema";
+import { AccommodationSchema } from "@/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Input } from "./ui/input";
@@ -18,31 +18,27 @@ import { useFormStatus } from "react-dom";
 import CardWrapper from "./CardWrapper";
 import dayjs from "dayjs";
 
-interface FormCampProps {
-  onSubmit: (data: Models.Camp) => void;
+interface FormAccommodationProps {
+  onSubmit: (data: Models.Accommodation) => void;
 }
 
-const FormCamp = ({ onSubmit }: FormCampProps) => {
+const FormAccommodation = ({ onSubmit }: FormAccommodationProps) => {
   const form = useForm({
-    resolver: zodResolver(RegisterCampSchema),
+    resolver: zodResolver(AccommodationSchema),
     defaultValues: {
       name: "",
-      date: dayjs().format("YYYY-MM-DD"),
     },
     shouldFocusError: true,
   });
 
-  const onFinish = (data: z.infer<typeof RegisterCampSchema>) => {
-    onSubmit({
-      ...data,
-      date: dayjs(data.date).format("DD/MM/YYYY"),
-    } as Models.Camp);
+  const onFinish = (data: z.infer<typeof AccommodationSchema>) => {
+    onSubmit(data as Models.Accommodation);
   };
 
   const { pending } = useFormStatus();
 
   return (
-    <CardWrapper title="Acampamento" label="Informe os dados do acampamento">
+    <CardWrapper title="Alojamento" label="Informe os nome do alojamento">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onFinish)} className="space-y-6">
           <div className="space-y-4">
@@ -51,29 +47,12 @@ const FormCamp = ({ onSubmit }: FormCampProps) => {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Nome do acampamento</FormLabel>
+                  <FormLabel>Nome do alojamento</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       type="text"
-                      placeholder="Digite o nome do acampamento"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="date"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Data do acampamento</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      type="date"
-                      placeholder="Escolha a data"
+                      placeholder="Digite o nome do alojamento"
                     />
                   </FormControl>
                   <FormMessage />
@@ -82,7 +61,7 @@ const FormCamp = ({ onSubmit }: FormCampProps) => {
             />
           </div>
           <Button type="submit" className="w-full" disabled={pending}>
-            Cadastrar acampamento
+            Cadastrar alojamento
           </Button>
         </form>
       </Form>
@@ -90,4 +69,4 @@ const FormCamp = ({ onSubmit }: FormCampProps) => {
   );
 };
 
-export default FormCamp;
+export default FormAccommodation;

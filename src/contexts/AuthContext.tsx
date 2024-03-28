@@ -64,7 +64,9 @@ export const AuthContextWrapper: React.FC<Props> = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ userData, saveUserData, verifyIsLogged, logOut }}>
+    <AuthContext.Provider
+      value={{ userData, saveUserData, verifyIsLogged, logOut }}
+    >
       {children}
     </AuthContext.Provider>
   );

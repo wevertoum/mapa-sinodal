@@ -8,18 +8,25 @@ import {
   doc,
   onSnapshot,
   query,
+  where,
   DocumentData,
   updateDoc,
 } from "firebase/firestore";
 
 export const useCollection = <T,>(
-  path: string
+  path: string,
+  filterField?: keyof T,
+  filterValue?: string
 ): [T[] | null, Models.CollectionActions<T>] => {
   const [state, setState] = useState<T[] | null>(null);
   const ref = collection(db, path);
 
   useEffect(() => {
-    const q = query(ref);
+    let q = query(ref);
+    if (filterField && filterValue) {
+      q = query(ref, where(filterField as string, "==", filterValue));
+    }
+
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const items: T[] = [];
       querySnapshot.forEach((doc) => {
@@ -29,7 +36,7 @@ export const useCollection = <T,>(
     });
 
     return () => unsubscribe();
-  }, [path]);
+  }, [path, filterField, filterValue]);
 
   const add = useCallback(
     async (data: T) => {

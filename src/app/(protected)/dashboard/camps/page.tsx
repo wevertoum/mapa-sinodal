@@ -1,46 +1,51 @@
 "use client";
 import FormCamp from "@/components/FormCamp";
-import { Button } from "@/components/ui/button";
 import useCollection from "@/hooks/firebase/useCollection";
 import { useCallback, useState } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
-interface CampsPageProps {
-  params: {};
-}
+import ListCamps from "@/components/ListCamps";
+import { useRouter } from "next/navigation";
 
-export default function CampsPage({ params }: CampsPageProps) {
+export default function CampsPage() {
   const [camps, { add, remove }] = useCollection<Models.Camp>("camps");
-
+  const [open, setOpen] = useState(false);
+  const router = useRouter();
   const addCamp = useCallback(async (camp: Models.Camp) => {
     try {
-      await add(camp);
+      await add(camp).then(() => setOpen(false));
       return;
     } catch (error) {
       console.error("Erro ao adicionar acampamento: ", error);
     }
   }, []);
 
+  const navigate = useCallback((id: string) => {
+    router.push(`/dashboard/camps/${id}/`);
+  }, []);
+
   return (
-    <div className="flex flex-col space-y-4 w-[800px]">
-      {camps?.map((camp) => (
-        <div
-          key={camp.id}
-          className="border rounded-lg p-4 mb-4 flex justify-between items-center"
+    <div className="flex flex-col space-y-4">
+      <ListCamps camps={camps} onRemove={remove} onDetail={navigate} />
+
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogTrigger
+          onClick={() => setOpen(true)}
+          className="text-gray-400 dark:text-white"
         >
-          <div>
-            <h2 className="text-xl font-bold">{camp.name}</h2>
-            <p className="text-gray-600">Data: {camp.date}</p>
-          </div>
-          <Button
-            onClick={() => remove(camp.id)}
-            className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400"
-          >
-            deletar acampamento
-          </Button>
-        </div>
-      ))}
-      <br />
-      <FormCamp onSubmit={addCamp} />
+          Cadastrar acampamento
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <FormCamp onSubmit={addCamp} />
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

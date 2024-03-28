@@ -25,7 +25,7 @@ const CardWrapper = ({
   children,
 }: CardWrapperProps) => {
   return (
-    <Card className="">
+    <>
       <CardHeader>
         <AuthHeader label={label} title={title} />
       </CardHeader>
@@ -35,7 +35,7 @@ const CardWrapper = ({
           <BackButton label={backButtonLabel} href={backButtonHref} />
         </CardFooter>
       )}
-    </Card>
+    </>
   );
 };
 

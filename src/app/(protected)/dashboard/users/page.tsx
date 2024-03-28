@@ -1,15 +1,10 @@
 "use client";
 import Authenticate from "@/components/Authenticate";
 
-interface UsersPageProps {
-  params: {};
-}
-
-export default function UsersPage({ params }: UsersPageProps) {
+export default function UsersPage() {
   return (
     <>
-      <h1 className="text-3xl mb-6 text-center">Sign Up</h1>
-
+      <h1 className="text-3xl mb-6 text-center">Cadastrar usuário</h1>
       <Authenticate
         method="signUp"
         onFinish={() => {
