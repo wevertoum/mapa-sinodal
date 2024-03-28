@@ -21,7 +21,7 @@ interface BedroomsProps {
 const Bedrooms = ({ id_accommodation, id_camp }: BedroomsProps) => {
   const [open, setOpen] = useState(false);
   const [bedrooms, { add, remove }] = useCollection<Models.Bedroom>(
-    `/bedrooms`,
+    "/bedrooms",
     "id_accommodation",
     id_accommodation
   );
