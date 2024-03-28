@@ -1,4 +1,5 @@
 "use client";
+import { Button } from "@/components/ui/button";
 import useCollection from "@/hooks/firebase/useCollection";
 import { useCallback, useState } from "react";
 
@@ -54,12 +55,12 @@ export default function CampsPage({ params }: CampsPageProps) {
             <p className="text-gray-600">Data: {camp.data}</p>
             <p className="text-gray-600">Vagas: {camp.vagas}</p>
           </div>
-          <button
+          <Button
             onClick={() => remove(camp.id)}
             className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400"
           >
             Remove
-          </button>
+          </Button>
         </div>
       ))}
       <br />
@@ -90,12 +91,12 @@ export default function CampsPage({ params }: CampsPageProps) {
           required
           className="border rounded-md p-2"
         />
-        <button
+        <Button
           type="submit"
           className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
         >
           Adicionar Acampamento
-        </button>
+        </Button>
       </form>
     </div>
   );

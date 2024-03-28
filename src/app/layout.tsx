@@ -31,7 +31,7 @@ export default function RootLayout({
         <Provider>
           <AuthContextWrapper>
             <div
-              className={`bg-white dark:bg-dark-custom text-white min-h-screen w-screen flex flex-col ${robotoMono.variable} ${openSans.variable} font-sans`}
+              className={`bg-white dark:bg-slate-800 text-white min-h-screen w-screen flex flex-col ${robotoMono.variable} ${openSans.variable} font-sans`}
             >
               <Header />
               <div className="flex flex-col items-center mt-36">

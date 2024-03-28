@@ -3,6 +3,8 @@ import signUp from "@/firebase/signup";
 import signIn from "@/firebase/signin";
 import useCustomError from "@/hooks/useCustomError";
 import { UserCredential } from "firebase/auth";
+import { Button } from "../ui/button";
+import { darkWhiteText } from "@/utils/pattern-classnames";
 
 interface Props {
   onFinish: (data: UserCredential | null) => void;
@@ -20,8 +22,8 @@ const Authenticate: React.FC<Props> = ({ onFinish, method }) => {
   };
 
   const labels = {
-    signIn: "Entrar",
-    signUp: "Registrar",
+    signIn: "Fazer login",
+    signUp: "Criar usuário",
   };
 
   const handleForm = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -29,22 +31,21 @@ const Authenticate: React.FC<Props> = ({ onFinish, method }) => {
     const targetFunction = authFunctions[method];
     const { result, error } = await targetFunction(email, password);
     if (error) {
-      showError(
-        `Erro ao ${
-          method === "signIn" ? "entrar" : "registrar"
-        }: ${JSON.stringify(error)}`
-      );
+      showError(JSON.stringify(error, null, 2));
       return;
     }
     return onFinish(result);
   };
 
   return (
-    <div className="bg-gray-200 dark:bg-gray-800 rounded-lg p-8 shadow-md w-80">
-      <h1 className="text-3xl mb-6 text-center">{labels[method]}</h1>
+    <div className="p-8">
+      <ErrorComponent />
+      <h1 className={`text-3xl mb-6 text-center ${darkWhiteText}`}>
+        {labels[method]}
+      </h1>
       <form onSubmit={handleForm} className="space-y-4">
         <div>
-          <label htmlFor="email" className="text-lg block">
+          <label htmlFor="email" className={`text-lg block ${darkWhiteText}`}>
             Email
           </label>
           <input
@@ -58,7 +59,10 @@ const Authenticate: React.FC<Props> = ({ onFinish, method }) => {
           />
         </div>
         <div>
-          <label htmlFor="password" className="text-lg block">
+          <label
+            htmlFor="password"
+            className={`text-lg block ${darkWhiteText}`}
+          >
             Senha
           </label>
           <input
@@ -71,13 +75,12 @@ const Authenticate: React.FC<Props> = ({ onFinish, method }) => {
             className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:border-blue-500 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:text-white"
           />
         </div>
-        <button
+        <Button
           type="submit"
           className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition-colors"
         >
           {labels[method]}
-        </button>
-        <ErrorComponent />
+        </Button>
       </form>
     </div>
   );

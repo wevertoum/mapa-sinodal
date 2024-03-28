@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, useCallback, useMemo } from "react";
-import { UsersIcon, Bars3Icon } from "@heroicons/react/24/outline";
+import { UsersIcon } from "@heroicons/react/24/outline";
 import { usePathname, useRouter } from "next/navigation";
 
 export default function DashboardLayout({
@@ -56,15 +56,7 @@ export default function DashboardLayout({
         }`}
         onClick={() => setIsSidebarOpen(false)}
       />
-      <button
-        onClick={() => setIsSidebarOpen(true)}
-        aria-controls="default-sidebar"
-        type="button"
-        className="fixed top-16 left-0 inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-      >
-        <span className="sr-only">Open sidebar</span>
-        <Bars3Icon className="w-6 h-6" />
-      </button>
+
       <aside
         id="default-sidebar"
         className={`fixed top-${

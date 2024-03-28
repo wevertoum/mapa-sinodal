@@ -35,7 +35,7 @@ const Header: React.FC<Props> = () => {
   };
 
   return (
-    <div className="bg-white dark:bg-dark-custom p-4 fixed top-0 w-full">
+    <div className="bg-white dark:bg-slate-800 p-4 fixed top-0 w-full">
       <div className="flex justify-between">
         <div className="flex items-center">
           <LogoSinodal size={30} theme={theme} />
@@ -64,7 +64,7 @@ const Header: React.FC<Props> = () => {
           </div>
 
           {isMenuOpen && (
-            <div className="md:hidden absolute top-16 right-4 bg-white dark:bg-dark-custom p-4 shadow-lg rounded-lg">
+            <div className="md:hidden absolute top-16 right-4 bg-white dark:bg-slate-800 p-4 shadow-lg rounded-lg">
               {menuItens.map((item, index) => (
                 <a
                   onClick={() => {
