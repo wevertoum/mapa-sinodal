@@ -1,17 +1,22 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Authenticate from "@/components/Authenticate";
 import { useAuthContext } from "@/contexts/AuthContext";
+import DisplayContent from "@/components/DisplayContent";
 
 interface SignInPageProps {
   params: {};
 }
 
 export default function SignInPage({ params }: SignInPageProps) {
-  const { saveUserData } = useAuthContext();
+  const { saveUserData, verifyIsLogged } = useAuthContext();
+
+  useEffect(() => {
+    verifyIsLogged();
+  }, []);
 
   return (
-    <div className="flex justify-center items-center">
+    <DisplayContent>
       <Authenticate
         method="signIn"
         onFinish={async (result) => {
@@ -26,6 +31,6 @@ export default function SignInPage({ params }: SignInPageProps) {
           }
         }}
       />
-    </div>
+    </DisplayContent>
   );
 }

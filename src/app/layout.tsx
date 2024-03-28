@@ -1,4 +1,4 @@
-import Header from "@/components/Header/Header";
+import Header from "@/components/NavBar";
 import type { Metadata } from "next";
 import "../../styles/global.css";
 import { Roboto_Mono, Open_Sans } from "next/font/google";
@@ -33,10 +33,7 @@ export default function RootLayout({
             <div
               className={`bg-white dark:bg-slate-800 text-white min-h-screen w-screen flex flex-col ${robotoMono.variable} ${openSans.variable} font-sans`}
             >
-              <Header />
-              <div className="flex flex-col items-center mt-36">
-                <div className="max-w-4xl mx-auto px-6">{children}</div>
-              </div>
+              {children}
             </div>
           </AuthContextWrapper>
         </Provider>

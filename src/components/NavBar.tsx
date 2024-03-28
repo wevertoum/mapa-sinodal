@@ -3,13 +3,13 @@ import React, { useState } from "react";
 import LogoSinodal from "@/icons/LogoSinodal";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
-import ToggleTheme from "../ToggleTheme/ToggleTheme";
+import ToggleTheme from "./ToggleTheme";
 import { useTheme } from "next-themes";
 import { Bars3Icon } from "@heroicons/react/24/outline";
 
 interface Props {}
 
-const Header: React.FC<Props> = () => {
+const NavBar: React.FC<Props> = () => {
   const { theme } = useTheme();
   const menuItens = [
     {
@@ -23,6 +23,10 @@ const Header: React.FC<Props> = () => {
     {
       title: "Contato",
       url: "/contact",
+    },
+    {
+      title: "Login",
+      url: "/signin",
     },
   ];
 
@@ -96,4 +100,4 @@ const Header: React.FC<Props> = () => {
   );
 };
 
-export default Header;
+export default NavBar;

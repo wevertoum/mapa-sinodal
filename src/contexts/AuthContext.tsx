@@ -1,4 +1,5 @@
 "use client";
+import deleteCookie from "@/actions/deleteCookie";
 import getCookie from "@/actions/getCookie";
 import saveCookie from "@/actions/saveCookie";
 import { useRouter } from "next/navigation";
@@ -23,7 +24,7 @@ export const AuthContextWrapper: React.FC<Props> = ({ children }) => {
     async (userData: Models.UserData) => {
       saveCookie("userData", JSON.stringify(userData))
         .then(() => {
-          router.push("/protected/dashboard");
+          router.push("/dashboard");
           setUserData(userData);
         })
         .catch((error) => {
@@ -40,13 +41,30 @@ export const AuthContextWrapper: React.FC<Props> = ({ children }) => {
     }
   }, []);
 
+  const verifyIsLogged = useCallback(async () => {
+    const u = await getCookie("userData");
+    if (u) {
+      router.push("/dashboard");
+    }
+  }, [userData]);
+
+  const logOut = useCallback(async () => {
+    deleteCookie("userData")
+      .then(() => {
+        router.push("/");
+        setUserData(undefined);
+      })
+      .catch((error) => {
+        throw new Error(error);
+      });
+  }, [router]);
+
   useEffect(() => {
-    console.log("AuthContextWrapper useEffect");
     getToken();
   }, []);
 
   return (
-    <AuthContext.Provider value={{ userData, saveUserData }}>
+    <AuthContext.Provider value={{ userData, saveUserData, verifyIsLogged, logOut }}>
       {children}
     </AuthContext.Provider>
   );

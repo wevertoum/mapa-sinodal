@@ -1,3 +1,4 @@
+import DisplayContent from "@/components/DisplayContent";
 import Link from "next/link";
 
 interface CampingsPageProps {}
@@ -15,7 +16,7 @@ export default function CampingsPage({}: CampingsPageProps) {
   ];
 
   return (
-    <>
+    <DisplayContent>
       <div className="flex flex-col items-center justify-center space-y-10 mt-28">
         <div className="flex flex-col items-center space-y-6">
           <h1 className="max-w-3xl text-center font-bold text-gray-900 dark:text-white text-5xl leading-tight">
@@ -35,6 +36,6 @@ export default function CampingsPage({}: CampingsPageProps) {
           <br />
         </>
       ))}
-    </>
+    </DisplayContent>
   );
 }
