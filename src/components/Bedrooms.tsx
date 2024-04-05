@@ -150,9 +150,9 @@ const Bedrooms = ({ id_accommodation, id_camp }: BedroomsProps) => {
         <EmptyContent label="Sem quartos cadastrados" />
       )}
 
-      <Button onClick={massiveAdd} className={defaultButton}>
+      {/* <Button onClick={massiveAdd} className={defaultButton}>
         Cadastro Massivo
-      </Button>
+      </Button> */}
 
       {accommodation && (
         <Dialog open={open} onOpenChange={setOpen}>
