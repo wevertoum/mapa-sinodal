@@ -1,5 +1,4 @@
 import useCollection from "@/hooks/firebase/useCollection";
-import { DocumentIcon } from "@heroicons/react/24/outline";
 
 import { useCallback, useState } from "react";
 import {
@@ -8,7 +7,6 @@ import {
   DialogHeader,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import FormAccommodation from "./FormAccommodation";
 import ListBedrooms from "./ListBedrooms";
 import FormBedroom from "./FormBedroom";
 import { useDocument } from "@/hooks/firebase/useDocument";

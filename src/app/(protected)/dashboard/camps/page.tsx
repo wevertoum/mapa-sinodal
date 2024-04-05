@@ -12,7 +12,6 @@ import {
 import ListCamps from "@/components/ListCamps";
 import { useRouter } from "next/navigation";
 import { defaultButton } from "@/utils/constants";
-import { DocumentIcon } from "@heroicons/react/24/outline";
 import { EmptyContent } from "@/components/EmptyContent";
 import { Button } from "@/components/ui/button";
 

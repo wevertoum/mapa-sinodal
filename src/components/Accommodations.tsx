@@ -1,5 +1,4 @@
 import useCollection from "@/hooks/firebase/useCollection";
-import { DocumentIcon } from "@heroicons/react/24/outline";
 
 import { useCallback, useState } from "react";
 import {

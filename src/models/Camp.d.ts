@@ -2,6 +2,8 @@ namespace Models {
   interface Member {
     id: string;
     id_camp: string;
+    id_accommodation: string;
+    id_bedroom: string;
     name: string;
     age: number;
     cpf: string;
