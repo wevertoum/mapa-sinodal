@@ -11,6 +11,10 @@ import {
 
 import ListCamps from "@/components/ListCamps";
 import { useRouter } from "next/navigation";
+import { defaultButton } from "@/utils/constants";
+import { DocumentIcon } from "@heroicons/react/24/outline";
+import { EmptyContent } from "@/components/EmptyContent";
+import { Button } from "@/components/ui/button";
 
 export default function CampsPage() {
   const [camps, { add, remove }] = useCollection<Models.Camp>("camps");
@@ -31,15 +35,22 @@ export default function CampsPage() {
 
   return (
     <div className="flex flex-col space-y-4">
-      <ListCamps camps={camps} onRemove={remove} onDetail={navigate} />
+      {camps && camps?.length > 0 && (
+        <ListCamps camps={camps} onRemove={remove} onDetail={navigate} />
+      )}
+
+      {camps?.length === 0 && (
+        <EmptyContent label="Sem acampamentos cadastrados" />
+      )}
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger
-          onClick={() => setOpen(true)}
-          className="text-gray-400 dark:text-white"
-        >
-          Cadastrar acampamento
-        </DialogTrigger>
+        <div className="flex justify-start">
+          <Button className={defaultButton}>
+            <DialogTrigger onClick={() => setOpen(true)}>
+              Cadastrar acampamento
+            </DialogTrigger>
+          </Button>
+        </div>
         <DialogContent>
           <DialogHeader>
             <FormCamp onSubmit={addCamp} />

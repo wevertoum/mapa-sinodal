@@ -1,5 +1,6 @@
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Button } from "./ui/button";
+import { defaultButton } from "@/utils/constants";
 
 interface ListAccommodationsProps {
   accommodations: Models.Accommodation[] | null;
@@ -12,9 +13,12 @@ const ListAccommodations = ({
   onRemove,
   onDetail,
 }: ListAccommodationsProps) => {
+  const sortedAccommodations = accommodations?.sort((a, b) =>
+    a.name > b.name ? 1 : -1
+  );
   return (
     <div className="mt-8">
-      {accommodations?.map((accommodation) => (
+      {sortedAccommodations?.map((accommodation) => (
         <div
           key={accommodation.id}
           className="border rounded-lg p-4 mb-4 flex justify-between items-center dark:bg-gray-600"
@@ -27,7 +31,7 @@ const ListAccommodations = ({
           <div className="flex items-center space-x-4">
             <Button
               onClick={() => onDetail(accommodation.id)}
-              className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className={defaultButton}
             >
               Gerenciar quartos
             </Button>

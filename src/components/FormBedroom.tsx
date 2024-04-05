@@ -1,5 +1,4 @@
 "use client";
-
 import {
   Form,
   FormControl,
@@ -16,14 +15,6 @@ import { Button } from "./ui/button";
 import { z } from "zod";
 import { useFormStatus } from "react-dom";
 import CardWrapper from "./CardWrapper";
-import dayjs from "dayjs";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
 interface FormBedroomProps {
   onSubmit: (data: Models.Bedroom) => void;
@@ -39,8 +30,8 @@ const FormBedroom = ({
   const form = useForm({
     resolver: zodResolver(BedroomSchema),
     defaultValues: {
-      visibleNumber: "",
-      capacity: "",
+      capacity: 0,
+      name: "",
       gender: "",
     },
     shouldFocusError: true,
@@ -59,6 +50,23 @@ const FormBedroom = ({
           <div className="space-y-4">
             <FormField
               control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Nome do quarto</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      type="text"
+                      placeholder="Digite o nome do quarto"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
               name="capacity"
               render={({ field }) => (
                 <FormItem>
@@ -67,6 +75,7 @@ const FormBedroom = ({
                     <Input
                       {...field}
                       type="number"
+                      onChange={(event) => field.onChange(+event.target.value)}
                       placeholder="Digite a capacidade do quarto"
                     />
                   </FormControl>

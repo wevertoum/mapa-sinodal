@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useCallback } from "react";
 import { UsersIcon } from "@heroicons/react/24/outline";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuthContext } from "@/contexts/AuthContext";
@@ -37,7 +37,7 @@ export default function DashboardLayout({
   ] as Models.MenuItens[];
 
   return (
-    <div className="p-4 h-screen">
+    <div className="p-4 min-h-screen dark:bg-slate-800">
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-2xl font-bold text-gray-400 dark:text-white">

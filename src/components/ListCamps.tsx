@@ -1,10 +1,11 @@
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Button } from "./ui/button";
+import { defaultButton } from "@/utils/constants";
 
 interface ListCampsProps {
   camps: Models.Camp[] | null;
-  onRemove: (id: string) => void;
-  onDetail: (id: string) => void;
+  onRemove?: (id: string) => void;
+  onDetail?: (id: string) => void;
 }
 
 const ListCamps = ({ camps, onRemove, onDetail }: ListCampsProps) => {
@@ -21,19 +22,24 @@ const ListCamps = ({ camps, onRemove, onDetail }: ListCampsProps) => {
             </h2>
             <p className="text-gray-400 dark:text-white">Data: {camp.date}</p>
           </div>
+
           <div className="flex items-center space-x-4">
-            <Button
-              onClick={() => onDetail(camp.id)}
-              className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
-            >
-              Detalhes
-            </Button>
-            <Button
-              onClick={() => onRemove(camp.id)}
-              className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400"
-            >
-              <XMarkIcon className="w-6 h-6" />
-            </Button>
+            {onDetail && (
+              <Button
+                onClick={() => onDetail(camp.id)}
+                className={defaultButton}
+              >
+                Detalhes
+              </Button>
+            )}
+            {onRemove && (
+              <Button
+                onClick={() => onRemove(camp.id)}
+                className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400"
+              >
+                <XMarkIcon className="w-6 h-6" />
+              </Button>
+            )}
           </div>
         </div>
       ))}

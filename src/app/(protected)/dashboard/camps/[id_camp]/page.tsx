@@ -1,12 +1,16 @@
 "use client";
 import React from "react";
-import { useParams } from "next/navigation";
 import { useDocument } from "@/hooks/firebase/useDocument";
 import Accommodations from "@/components/Accommodations";
 
-export default function DetailCampPage() {
-  const { id_camp } = useParams();
-  const [camp] = useDocument<Models.Camp>(`camps/${id_camp}`);
+interface DetailCampPage {
+  params: {
+    id_camp: string;
+  };
+}
+
+export default function DetailCampPage({ params }: DetailCampPage) {
+  const [camp] = useDocument<Models.Camp>(`camps/${params.id_camp}`);
 
   return (
     <div className="flex flex-col space-y-4 mt-8">

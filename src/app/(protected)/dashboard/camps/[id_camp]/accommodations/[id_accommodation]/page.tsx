@@ -1,14 +1,18 @@
 "use client";
 import React from "react";
-import { useParams } from "next/navigation";
 import { useDocument } from "@/hooks/firebase/useDocument";
-import Accommodations from "@/components/Accommodations";
 import Bedrooms from "@/components/Bedrooms";
 
-export default function DetailAccommodation() {
-  const { id_accommodation, id_camp } = useParams();
+interface DetailAccommodation {
+  params: {
+    id_camp: string;
+    id_accommodation: string;
+  };
+}
+
+export default function DetailAccommodation({ params }: DetailAccommodation) {
   const [accommodation] = useDocument<Models.Accommodation>(
-    `accommodations/${id_accommodation}`
+    `accommodations/${params.id_accommodation}`
   );
 
   return (
@@ -19,11 +23,11 @@ export default function DetailAccommodation() {
       {accommodation ? (
         <div>
           <h2 className="text-lg font-semibold text-gray-400 dark:text-white mb-4">
-            Dados do alojamento: {accommodation.name}
+            Quartos do alojamento: {accommodation.name}
           </h2>
           <Bedrooms
-            id_accommodation={id_accommodation as string}
-            id_camp={id_camp as string}
+            id_accommodation={params.id_accommodation}
+            id_camp={params.id_camp}
           />
         </div>
       ) : (

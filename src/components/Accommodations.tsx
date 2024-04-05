@@ -11,6 +11,9 @@ import {
 import FormAccommodation from "./FormAccommodation";
 import ListAccommodations from "./ListAccommodations";
 import { useRouter } from "next/navigation";
+import { Button } from "./ui/button";
+import { defaultButton } from "@/utils/constants";
+import { EmptyContent } from "./EmptyContent";
 
 interface AccommodationsProps {
   id_camp: string;
@@ -19,8 +22,11 @@ interface AccommodationsProps {
 const Accommodations = ({ id_camp }: AccommodationsProps) => {
   const [open, setOpen] = useState(false);
   const router = useRouter();
-  const [accommodations, { add, remove }] =
-    useCollection<Models.Accommodation>(`/accommodations`);
+  const [accommodations, { add, remove }] = useCollection<Models.Accommodation>(
+    "/accommodations",
+    "id_camp",
+    id_camp
+  );
 
   const addCamp = useCallback(async (accommodation: Models.Accommodation) => {
     try {
@@ -42,26 +48,26 @@ const Accommodations = ({ id_camp }: AccommodationsProps) => {
 
   return (
     <>
-      {accommodations && accommodations?.length > 0 ? (
+      {accommodations && accommodations?.length > 0 && (
         <ListAccommodations
           accommodations={accommodations}
           onRemove={remove}
           onDetail={navigate}
         />
-      ) : (
-        <div className="border rounded-lg p-4 mb-4 dark:bg-red-300 flex items-center">
-          <DocumentIcon className="w-5 h-w-5 text-red-500 mr-4" />
-          <p className="text-black font-bold">Sem alojamentos cadastrados</p>
-        </div>
       )}
 
+      {accommodations?.length === 0 && (
+        <EmptyContent label="Sem alojamentos cadastrados" />
+      )}
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger
-          onClick={() => setOpen(true)}
-          className="text-gray-400 dark:text-white"
-        >
-          Cadastrar acomodação
-        </DialogTrigger>
+        <div className="flex justify-start">
+          <Button className={defaultButton}>
+            <DialogTrigger onClick={() => setOpen(true)} className="text-white">
+              Cadastrar acomodação
+            </DialogTrigger>
+          </Button>
+        </div>
+
         <DialogContent>
           <DialogHeader>
             <FormAccommodation onSubmit={addCamp} />

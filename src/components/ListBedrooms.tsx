@@ -1,6 +1,7 @@
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Button } from "./ui/button";
 import { labelsGender } from "@/utils/labelsGender";
+import { sortBy } from "lodash";
 
 interface ListBedroomsProps {
   bedrooms: Models.Bedroom[] | null;
@@ -8,16 +9,18 @@ interface ListBedroomsProps {
 }
 
 const ListBedrooms = ({ bedrooms, onRemove }: ListBedroomsProps) => {
+  const sortedBedrooms = sortBy(bedrooms, ["sequence"]);
+
   return (
     <div className="mt-8">
-      {bedrooms?.map((bedroom) => (
+      {sortedBedrooms?.map((bedroom) => (
         <div
           key={bedroom.id}
           className="border rounded-lg p-4 mb-4 flex justify-between items-center dark:bg-gray-600"
         >
           <div>
             <h2 className="text-xl text-gray-400 dark:text-white font-bold">
-              Quarto {bedroom.visibleNumber}
+              {bedroom.name}
             </h2>
             <p className="text-gray-400 dark:text-white">
               Capacidade: {bedroom.capacity}

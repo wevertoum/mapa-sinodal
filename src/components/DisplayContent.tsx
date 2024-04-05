@@ -1,5 +1,4 @@
 "use client";
-
 interface DisplayContentProps {
   children: React.ReactNode;
 }

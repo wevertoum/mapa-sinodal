@@ -25,8 +25,11 @@ export const AccommodationSchema = z.object({
 });
 
 export const BedroomSchema = z.object({
-  capacity: z.string().min(1, {
-    message: "Por favor, insira um número válido",
+  capacity: z.number().int().min(1, {
+    message: "Por favor, insira uma capacidade válida",
+  }),
+  name: z.string().min(1, {
+    message: "Por favor, insira um nome válido",
   }),
   gender: z.string().refine((value) => value === "M" || value === "F", {
     message: "Por favor, insira um gênero válido (M/F)",
