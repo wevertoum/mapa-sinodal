@@ -26,7 +26,7 @@ const ListBedrooms = ({ bedrooms, onRemove }: ListBedroomsProps) => {
               Capacidade: {bedroom.capacity}
             </p>
             <p className="text-gray-400 dark:text-white">
-              Gênero permitido: {labelsGender[bedroom.gender]}
+              Gênero permitido: {labelsGender[bedroom.gender].label}
             </p>
           </div>
           <div className="flex items-center space-x-4">

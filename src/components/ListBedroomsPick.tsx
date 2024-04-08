@@ -6,14 +6,15 @@ import { useTheme } from "next-themes";
 import BedsList from "./BedsList";
 
 interface ListBedroomsPickProps {
-  id_accommodation: string;
+  id_camp: string;
+  accomodation: Models.Accommodation;
 }
 
-const ListBedroomsPick = ({ id_accommodation }: ListBedroomsPickProps) => {
+const ListBedroomsPick = ({ id_camp, accomodation }: ListBedroomsPickProps) => {
   const [bedrooms] = useCollection<Models.Bedroom>(
     "/bedrooms",
     "id_accommodation",
-    id_accommodation
+    accomodation.id
   );
   const { theme } = useTheme();
 
@@ -45,7 +46,11 @@ const ListBedroomsPick = ({ id_accommodation }: ListBedroomsPickProps) => {
                 {bedroom.name}
               </p>
             </div>
-            <BedsList id_bedroom={bedroom.id} />
+            <BedsList
+              id_camp={id_camp}
+              accomodation={accomodation}
+              bedroom={bedroom}
+            />
           </div>
         </div>
       ))}

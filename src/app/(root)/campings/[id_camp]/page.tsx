@@ -18,6 +18,11 @@ export default function CampingPage({ params }: CampingPageProps) {
     "id_camp",
     params.id_camp
   );
+
+  const sortedAccommodations = accommodations?.sort((a, b) =>
+    a.name > b.name ? 1 : -1
+  );
+
   return (
     <div className="flex flex-col space-y-4 p-4">
       <h1 className="text-2xl font-bold text-gray-400 dark:text-white">
@@ -28,7 +33,7 @@ export default function CampingPage({ params }: CampingPageProps) {
         Escolha um quarto em um determinado alojamento e faça a reserva
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {accommodations?.map((accommodation) => (
+        {sortedAccommodations?.map((accommodation) => (
           <div
             key={accommodation.id}
             className={
@@ -41,7 +46,10 @@ export default function CampingPage({ params }: CampingPageProps) {
               </h2>
               <HomeIcon className="h-6 w-6 text-gray-400 dark:text-white" />
             </div>
-            <ListBedroomsPick id_accommodation={accommodation.id} />
+            <ListBedroomsPick
+              id_camp={params.id_camp}
+              accomodation={accommodation}
+            />
           </div>
         ))}
       </div>

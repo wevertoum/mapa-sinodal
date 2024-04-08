@@ -16,7 +16,7 @@ import { EmptyContent } from "@/components/EmptyContent";
 import { Button } from "@/components/ui/button";
 
 export default function CampsPage() {
-  const [camps, { add, remove }] = useCollection<Models.Camp>("camps");
+  const [camps, { add, remove }] = useCollection<Models.Camp>("/camps");
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const addCamp = useCallback(async (camp: Models.Camp) => {

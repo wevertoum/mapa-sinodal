@@ -27,7 +27,7 @@ const Accommodations = ({ id_camp }: AccommodationsProps) => {
     id_camp
   );
 
-  const addCamp = useCallback(async (accommodation: Models.Accommodation) => {
+  const addAccommodation = useCallback(async (accommodation: Models.Accommodation) => {
     try {
       await add({ ...accommodation, id_camp }).then(() => setOpen(false));
       return;
@@ -69,7 +69,7 @@ const Accommodations = ({ id_camp }: AccommodationsProps) => {
 
         <DialogContent>
           <DialogHeader>
-            <FormAccommodation onSubmit={addCamp} />
+            <FormAccommodation onSubmit={addAccommodation} />
           </DialogHeader>
         </DialogContent>
       </Dialog>

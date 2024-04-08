@@ -8,7 +8,7 @@ import { useCallback } from "react";
 interface CampingsPageProps {}
 
 export default function CampingsPage({}: CampingsPageProps) {
-  const [camps] = useCollection<Models.Camp>("camps");
+  const [camps] = useCollection<Models.Camp>("/camps");
 
   const router = useRouter();
   const navigate = useCallback((id: string) => {

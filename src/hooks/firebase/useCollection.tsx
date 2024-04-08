@@ -11,7 +11,6 @@ import {
   where,
   DocumentData,
   updateDoc,
-  orderBy,
 } from "firebase/firestore";
 
 export const useCollection = <T,>(
@@ -23,7 +22,6 @@ export const useCollection = <T,>(
   const ref = collection(db, path);
 
   useEffect(() => {
-    console.log(">>> useCollection", path);
     let q = query(ref);
     if (filterField && filterValue) {
       q = query(ref, where(filterField as string, "==", filterValue));
@@ -41,9 +39,10 @@ export const useCollection = <T,>(
   }, [path, filterField, filterValue]);
 
   const add = useCallback(
-    async (data: T) => {
-      await addDoc(ref, data as DocumentData).then((docRef) => {
+    async (data: T): Promise<T> => {
+      return await addDoc(ref, data as DocumentData).then((docRef) => {
         updateDoc(docRef, { id: docRef.id });
+        return { ...data, id: docRef.id } as T;
       });
     },
     [ref]

@@ -37,11 +37,11 @@ const Bedrooms = ({ id_accommodation, id_camp }: BedroomsProps) => {
         await add({
           ...bedroom,
           id_camp,
-          sequence: bedroom.sequence ? bedroom.sequence : bedrooms!.length + 1,
+          sequence: bedrooms?.length || 0 + 1,
         }).then(() => setOpen(false));
         return;
       } catch (error) {
-        console.error("Erro ao adicionar acomodação: ", error);
+        console.error("Erro ao adicionar quarto: ", error);
       }
     },
     [accommodation]
@@ -134,7 +134,7 @@ const Bedrooms = ({ id_accommodation, id_camp }: BedroomsProps) => {
     try {
       await Promise.all(quartosMock.map((quarto) => add(quarto)));
     } catch (error) {
-      console.error("Erro ao adicionar acomodação: ", error);
+      console.error("Erro ao adicionar quarto: ", error);
     }
   }, [quartosMock]);
 

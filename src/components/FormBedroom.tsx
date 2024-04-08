@@ -15,6 +15,13 @@ import { Button } from "./ui/button";
 import { z } from "zod";
 import { useFormStatus } from "react-dom";
 import CardWrapper from "./CardWrapper";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./ui/select";
 
 interface FormBedroomProps {
   onSubmit: (data: Models.Bedroom) => void;
@@ -88,13 +95,17 @@ const FormBedroom = ({
               name="gender"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Gênero</FormLabel>
+                  <FormLabel>Sexo</FormLabel>
                   <FormControl>
-                    <Input
-                      {...field}
-                      type="text"
-                      placeholder="Gênero do quarto (M/F)"
-                    />
+                    <Select onValueChange={field.onChange}>
+                      <SelectTrigger className="w-[180px]">
+                        <SelectValue placeholder="Selecione o sexo" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="M">Masculino</SelectItem>
+                        <SelectItem value="F">Feminino</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </FormControl>
                   <FormMessage />
                 </FormItem>

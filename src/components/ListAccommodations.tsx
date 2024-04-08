@@ -13,9 +13,11 @@ const ListAccommodations = ({
   onRemove,
   onDetail,
 }: ListAccommodationsProps) => {
+  
   const sortedAccommodations = accommodations?.sort((a, b) =>
     a.name > b.name ? 1 : -1
   );
+
   return (
     <div className="mt-8">
       {sortedAccommodations?.map((accommodation) => (

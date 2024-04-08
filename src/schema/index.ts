@@ -40,13 +40,16 @@ export const BookRoomSchema = z.object({
   name: z.string().min(1, {
     message: "Por favor, insira um nome válido",
   }),
-  age: z.number().int().min(1, {
-    message: "Por favor, insira uma idade válida",
-  }),
+  age: z
+    .number()
+    .int()
+    .min(1, {
+      message: "Idade mínima é 1",
+    })
+    .max(120, {
+      message: "Idade máxima é 120",
+    }),
   cpf: z.string().regex(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/, {
     message: "Por favor, insira um CPF válido (formato: 000.000.000-00)",
-  }),
-  gender: z.string().refine((value) => value === "M" || value === "F", {
-    message: "Por favor, insira um gênero válido (M/F)",
   }),
 });
