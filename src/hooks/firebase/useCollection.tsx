@@ -23,6 +23,7 @@ export const useCollection = <T,>(
   const ref = collection(db, path);
 
   useEffect(() => {
+    console.log(">>> useCollection", path);
     let q = query(ref);
     if (filterField && filterValue) {
       q = query(ref, where(filterField as string, "==", filterValue));

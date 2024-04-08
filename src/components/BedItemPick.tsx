@@ -13,27 +13,18 @@ export const BedItemPick = ({
   bedNumber,
   onSelect,
 }: BedItemPickProps) => {
-  const { toast } = useToast();
 
-  const onClick = () => {
-    if (available) {
-      onSelect && onSelect();
-    } else {
-      toast({
-        title: "Cama não disponível",
-        description: "Escollha outra cama",
-      });
-    }
-  };
+  const onClick = () => {};
   return (
     <>
       <div
-        className={`bg-green-500 h-6 w-6 flex justify-center items-center rounded-md cursor-pointer`}
+        className={`h-4 w-4 flex justify-center items-center rounded-md cursor-pointer ${
+          available ? "bg-green-500" : "bg-red-400"
+        }`}
         onClick={onClick}
       >
         <Bed key={bedNumber} size={10} />
       </div>
-      <Toaster />
     </>
   );
 };

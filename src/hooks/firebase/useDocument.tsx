@@ -26,7 +26,7 @@ export const useDocument = <T,>(
     });
 
     return () => unsubscribe();
-  }, [ref]);
+  }, []);
 
   const set = useCallback(
     async (data: any) => {
