@@ -13,6 +13,8 @@ import { useRouter } from "next/navigation";
 import { Button } from "./ui/button";
 import { defaultButton } from "@/utils/constants";
 import { EmptyContent } from "./EmptyContent";
+import { Separator } from "@/components/ui/separator";
+import ControleAcampantes from "./ControleAcampantes";
 
 interface AccommodationsProps {
   id_camp: string;
@@ -27,14 +29,17 @@ const Accommodations = ({ id_camp }: AccommodationsProps) => {
     id_camp
   );
 
-  const addAccommodation = useCallback(async (accommodation: Models.Accommodation) => {
-    try {
-      await add({ ...accommodation, id_camp }).then(() => setOpen(false));
-      return;
-    } catch (error) {
-      console.error("Erro ao adicionar acomodação: ", error);
-    }
-  }, []);
+  const addAccommodation = useCallback(
+    async (accommodation: Models.Accommodation) => {
+      try {
+        await add({ ...accommodation, id_camp }).then(() => setOpen(false));
+        return;
+      } catch (error) {
+        console.error("Erro ao adicionar acomodação: ", error);
+      }
+    },
+    []
+  );
 
   const navigate = useCallback(
     (id_accommodation: string) => {
@@ -73,6 +78,8 @@ const Accommodations = ({ id_camp }: AccommodationsProps) => {
           </DialogHeader>
         </DialogContent>
       </Dialog>
+      <Separator className="my-4 bg-slate-500" />
+      <ControleAcampantes id_camp={id_camp as string} />
     </>
   );
 };

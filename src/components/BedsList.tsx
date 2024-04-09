@@ -12,6 +12,8 @@ import { useCallback, useMemo, useState } from "react";
 import FormBookRoom from "./FormBookRoom";
 import useCollection from "@/hooks/firebase/useCollection";
 import { labelsGender } from "@/utils/labelsGender";
+import { UsersIcon } from "@heroicons/react/24/outline";
+import useCustomError from "@/hooks/useCustomError";
 
 interface BedsListProps {
   id_camp: string;
@@ -21,6 +23,7 @@ interface BedsListProps {
 
 const BedsList = ({ id_camp, accomodation, bedroom }: BedsListProps) => {
   const [open, setOpen] = useState(false);
+  const { showError, ErrorComponent } = useCustomError();
   const [members, { add: addMember }] =
     useCollection<Models.Member>("/members");
   const [beds, { add: addBed }] = useCollection<Models.Bed>(
@@ -45,7 +48,7 @@ const BedsList = ({ id_camp, accomodation, bedroom }: BedsListProps) => {
   const postMemberAndUpdateBedroom = useCallback(
     async (member: Models.Member) => {
       if (verifyExistence(member.cpf)) {
-        alert("CPF já cadastrado");
+        showError("CPF já cadastrado");
         return;
       }
       addMember({
@@ -76,6 +79,7 @@ const BedsList = ({ id_camp, accomodation, bedroom }: BedsListProps) => {
 
   return (
     <>
+      <ErrorComponent />
       <div className="mt-2 grid grid-cols-4 gap-1">
         {bedsArrayWithAvailability.map((bed, i) => (
           <BedItemPick
@@ -91,7 +95,7 @@ const BedsList = ({ id_camp, accomodation, bedroom }: BedsListProps) => {
       ) : (
         <Dialog open={open} onOpenChange={setOpen}>
           <div className="flex justify-start">
-            <Button className={`mt-4 font-bold`}>
+            <Button className="mt-4 font-bold" size="sm">
               <DialogTrigger onClick={() => setOpen(true)}>
                 Reservar
               </DialogTrigger>
@@ -116,6 +120,20 @@ const BedsList = ({ id_camp, accomodation, bedroom }: BedsListProps) => {
           </DialogContent>
         </Dialog>
       )}
+      <div
+        onClick={() => setOpen(true)}
+        className="mt-2 cursor-pointer"
+        style={{
+          justifyContent: "center",
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        <UsersIcon className="h-3 w-3 text-gray-500 dark:text-gray-300 mr-2" />
+        <small className="text-gray-500 dark:text-gray-300 hover:text-gray-700 dark:hover:text-gray-100">
+          membros
+        </small>
+      </div>
     </>
   );
 };

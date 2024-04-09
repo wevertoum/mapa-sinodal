@@ -34,7 +34,7 @@ interface FormBookRoomProps {
   onSubmit: (data: Models.Member) => void;
   titleBedroom: string;
   accommodationName: string;
-  gender?: "M" | "F";
+  gender: "M" | "F";
 }
 
 const FormBookRoom = ({
@@ -81,6 +81,7 @@ const FormBookRoom = ({
                       <Input
                         {...field}
                         type="text"
+                        disabled={pending}
                         placeholder="Digite o nome do acampante"
                       />
                     </FormControl>
@@ -98,6 +99,7 @@ const FormBookRoom = ({
                       <Input
                         {...field}
                         type="number"
+                        disabled={pending}
                         onChange={(event) =>
                           field.onChange(+event.target.value)
                         }
@@ -121,6 +123,7 @@ const FormBookRoom = ({
                           required: true,
                         })}
                         type="text"
+                        disabled={pending}
                         placeholder="Digite o CPF"
                       />
                     </FormControl>
@@ -147,15 +150,15 @@ const FormBookRoom = ({
             <AlertDialogTitle>Atenção</AlertDialogTitle>
             <AlertDialogDescription>
               Você está reservando uma vaga no{" "}
-              <b className={`text-${labelsGender[gender || "M"].color}`}>
+              <b className={`text-${labelsGender[gender].color}`}>
                 {titleBedroom}
               </b>
               ,{" "}
-              <b className={`text-${labelsGender[gender || "M"].color}`}>
+              <b className={`text-${labelsGender[gender].color}`}>
                 {accommodationName}
               </b>
               , esse quarto é só para{" "}
-              <b className={`text-${labelsGender[gender || "M"].color}`}>
+              <b className={`text-${labelsGender[gender].color}`}>
                 {gender === "M" ? "MENINOS" : "MENINAS"}
               </b>
             </AlertDialogDescription>

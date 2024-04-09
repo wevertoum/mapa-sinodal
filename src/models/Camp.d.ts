@@ -43,4 +43,18 @@ namespace Models {
     date: string;
     accommodations: string[];
   }
+
+  interface AccommodationGrouped {
+    name_accommodation: string;
+    bedrooms: {
+      [key: string]: {
+        name_bedroom: string;
+        members: Member[];
+      };
+    };
+  }
+
+  interface AccommodationsMap {
+    [key: string]: AccommodationGrouped;
+  }
 }

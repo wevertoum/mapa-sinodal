@@ -30,7 +30,7 @@ export default function DashboardLayout({
       url: "camps",
     },
     {
-      label: "Usuários",
+      label: "Cadastrar administrador",
       icon: UsersIcon,
       url: "users",
     },
