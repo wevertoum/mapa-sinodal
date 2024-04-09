@@ -67,11 +67,10 @@ const Accommodations = ({ id_camp }: AccommodationsProps) => {
         <div className="flex justify-start">
           <Button className={defaultButton}>
             <DialogTrigger onClick={() => setOpen(true)} className="text-white">
-              Cadastrar acomodação
+              Cadastrar alojamento
             </DialogTrigger>
           </Button>
         </div>
-
         <DialogContent>
           <DialogHeader>
             <FormAccommodation onSubmit={addAccommodation} />

@@ -16,6 +16,7 @@ const ControleAcampantes = ({ id_camp }: ControleAcampantesProps) => {
 
   return (
     <div>
+      <h2 className="text-xl font-semibold mb-4">Relatório de acampantes alojados</h2>
       {members && members?.length > 0 && (
         <ListMembers members={members} onRemove={remove} />
       )}

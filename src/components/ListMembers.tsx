@@ -4,6 +4,7 @@ import { XCircleIcon, ForwardIcon } from "@heroicons/react/24/outline";
 import { useMemo } from "react";
 import { groupMembers } from "@/utils/groupMembers";
 import { formatCpf } from "@/utils/formatCpf";
+import PopConfirm from "./PopConfirm";
 
 interface ListMembersProps {
   members: Models.Member[];
@@ -14,7 +15,7 @@ const ListMembers = ({ members, onRemove }: ListMembersProps) => {
   const groupedMembers = useMemo(() => groupMembers(members), [members]);
 
   return (
-    <div className="container mx-auto p-4 ">
+    <div>
       {Object.entries(groupedMembers).map(
         ([accommodationId, accommodation]) => (
           <div
@@ -32,6 +33,12 @@ const ListMembers = ({ members, onRemove }: ListMembersProps) => {
                   </h3>
                   <div className="relative overflow-x-auto">
                     <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                      <colgroup>
+                        <col style={{ width: "25%" }} />
+                        <col style={{ width: "25%" }} />
+                        <col style={{ width: "25%" }} />
+                        <col style={{ width: "25%" }} />
+                      </colgroup>
                       <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
                           <th scope="col" className="px-6 py-3">
@@ -61,10 +68,13 @@ const ListMembers = ({ members, onRemove }: ListMembersProps) => {
                             </td>
                             <td className="px-6 py-4">
                               <div className="flex space-x-2">
-                                <XCircleIcon
-                                  className="h-5 w-5 text-red-500 cursor-pointer"
-                                  onClick={() => onRemove(member.id)}
-                                />
+                                <PopConfirm
+                                  onConfirm={() => onRemove(member.id)}
+                                  title="Tem certeza?"
+                                  description={`Você deseja remover o acampante ${member.name}?`}
+                                >
+                                  <XCircleIcon className="h-5 w-5 text-red-500 cursor-pointer" />
+                                </PopConfirm>
                                 <ForwardIcon className="h-5 w-5 text-blue-500 cursor-pointer" />
                               </div>
                             </td>
