@@ -25,7 +25,6 @@ export const useOnDraw = (
   const mouseUpListenerRef = useRef<MouseListener | null>(null);
 
   useEffect(() => {
-    console.log("useOnDraw");
     const initMouseMoveListener = () => {
       const mouseMoveListener = (e: MouseEvent) => {
         if (isDrawingRef.current) {
