@@ -7,26 +7,33 @@ const DebounceInput: React.FC<Props> = () => {
   const [lastValue, setLastValue] = useState("");
 
   useEffect(() => {
-    let timeoutId: NodeJS.Timeout;
+    let typingTimeout: NodeJS.Timeout;
+
+    const handleTypingTimeout = () => {
+      setIsTyping(false);
+      console.log("Last value:", lastValue);
+      setLastValue("");
+      setValue("");
+    };
 
     if (isTyping) {
-      timeoutId = setTimeout(() => {
-        console.log("Last value:", lastValue);
-        setLastValue("");
-        setIsTyping(false);
-        setValue("");
-      }, 2000);
+      clearTimeout(typingTimeout);
+      typingTimeout = setTimeout(handleTypingTimeout, 1000);
     }
 
     return () => {
-      clearTimeout(timeoutId);
+      clearTimeout(typingTimeout);
     };
   }, [lastValue, isTyping]);
 
   const handleChanges = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
-    setIsTyping(true);
-    setLastValue(e.target.value);
+    const typedValue = e.target.value;
+    setValue(typedValue);
+    setLastValue(typedValue);
+
+    if (!isTyping) {
+      setIsTyping(true);
+    }
   };
 
   return (
