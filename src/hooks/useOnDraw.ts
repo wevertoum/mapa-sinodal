@@ -6,8 +6,16 @@ export const useOnDraw = (
   onDraw: (
     ctx: CanvasRenderingContext2D,
     point: Models.Coords,
-    prevPoint: Models.Coords | null
-  ) => void
+    prevPoint: Models.Coords | null,
+    color?: string,
+    width?: number
+  ) => void,
+  drawedLines?: Models.DrawedLine[],
+  preferences?: {
+    color: string;
+    width: number;
+  },
+  disabled?: boolean
 ) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const prevPointRef = useRef<Models.Coords | null>(null);
@@ -17,13 +25,20 @@ export const useOnDraw = (
   const mouseUpListenerRef = useRef<MouseListener | null>(null);
 
   useEffect(() => {
+    console.log("useOnDraw");
     const initMouseMoveListener = () => {
       const mouseMoveListener = (e: MouseEvent) => {
         if (isDrawingRef.current) {
           const point = computePointInCanvas(e.clientX, e.clientY);
           const ctx = canvasRef.current?.getContext("2d");
           if (onDraw && point && ctx) {
-            onDraw(ctx, point, prevPointRef.current);
+            onDraw(
+              ctx,
+              point,
+              prevPointRef.current,
+              preferences?.color,
+              preferences?.width
+            );
             prevPointRef.current = point;
           }
         }
@@ -62,13 +77,28 @@ export const useOnDraw = (
       }
     };
 
-    initMouseMoveListener();
-    initMouseUpListener();
+    const drawdrawedLines = () => {
+      if (!canvasRef.current || !drawedLines) return;
+      const ctx = canvasRef.current.getContext("2d");
+
+      if (onDraw && ctx) {
+        drawedLines.forEach((line) => {
+          onDraw(ctx, line.start, line.end, line.color, line.width);
+        });
+      }
+    };
+    if (!disabled) {
+      initMouseMoveListener();
+      initMouseUpListener();
+    }
+    if (drawedLines) {
+      drawdrawedLines();
+    }
 
     return () => {
       removeListeners();
     };
-  }, [onDraw]);
+  }, [disabled, drawedLines, onDraw, preferences]);
 
   const setCanvasRef = (ref: HTMLCanvasElement) => {
     if (!ref) return;
