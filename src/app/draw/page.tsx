@@ -1,8 +1,8 @@
 "use client";
-import DebounceInput from "@/components/DebounceInput";
+import DebounceLab from "@/components/DebounceLab";
 import DrawCanvas from "@/components/DrawCanvas";
 import { debounce } from "lodash";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 
 const DrawPage: React.FC = () => {
   const [drawedLines, setDrawedLines] = useState<Models.DrawedLine[]>([]);
@@ -24,7 +24,7 @@ const DrawPage: React.FC = () => {
 
   return (
     <div className="w-screen h-screen flex flex-col justify-center items-center gap-4">
-      <DebounceInput />
+      <DebounceLab />
       <div className="w-full h-full flex justify-center items-center gap-4">
         <div>
           <small className="text-white text-left">Drawing</small>
