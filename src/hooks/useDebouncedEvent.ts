@@ -1,22 +1,30 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 const useDebouncedEvent = <T>(
   callback: (values: T[]) => void,
   delay: number = 500
 ) => {
-  const [isChanging, setIsChanging] = useState(false);
-  const [lastValue, setLastValue] = useState<T[]>([]);
+  const [state, setState] = useState<{ isChanging: boolean; lastValues: T[] }>({
+    isChanging: false,
+    lastValues: [],
+  });
+
+  const handleTypingTimeout = useCallback(() => {
+    setState((prevState) => ({
+      ...prevState,
+      isChanging: false,
+    }));
+    callback(state.lastValues);
+    setState((prevState) => ({
+      ...prevState,
+      lastValues: [],
+    }));
+  }, [state.lastValues, callback]);
 
   useEffect(() => {
     let typingTimeout: NodeJS.Timeout | undefined;
 
-    const handleTypingTimeout = () => {
-      setIsChanging(false);
-      callback(lastValue);
-      setLastValue([]);
-    };
-
-    if (isChanging) {
+    if (state.isChanging) {
       clearTimeout(typingTimeout);
       typingTimeout = setTimeout(handleTypingTimeout, delay);
     }
@@ -24,17 +32,17 @@ const useDebouncedEvent = <T>(
     return () => {
       clearTimeout(typingTimeout);
     };
-  }, [lastValue, isChanging, delay, callback]);
+  }, [state.isChanging, delay, handleTypingTimeout]);
 
-  const handleEvent = (e: T) => {
-    setLastValue((prevValue) => [...prevValue, e]);
+  const handleEvent = useCallback((value: T) => {
+    setState((prevState) => ({
+      ...prevState,
+      isChanging: true,
+      lastValues: [...prevState.lastValues, value],
+    }));
+  }, []);
 
-    if (!isChanging) {
-      setIsChanging(true);
-    }
-  };
-
-  return { isChanging, handleEvent };
+  return { isChanging: state.isChanging, handleEvent };
 };
 
 export default useDebouncedEvent;

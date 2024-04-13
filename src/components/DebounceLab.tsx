@@ -14,7 +14,7 @@ const DebounceLab: React.FC<Props> = () => {
     (typedValue) => {
       console.log("Array send in the last 1000 milliseconds:", typedValue);
     },
-    1000
+    200
   );
 
   return (
