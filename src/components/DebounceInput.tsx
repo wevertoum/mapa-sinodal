@@ -7,7 +7,7 @@ const DebounceInput: React.FC<Props> = () => {
   const [lastValue, setLastValue] = useState("");
 
   useEffect(() => {
-    let typingTimeout: NodeJS.Timeout;
+    let typingTimeout: NodeJS.Timeout | undefined;
 
     const handleTypingTimeout = () => {
       setIsTyping(false);
@@ -18,7 +18,7 @@ const DebounceInput: React.FC<Props> = () => {
 
     if (isTyping) {
       clearTimeout(typingTimeout);
-      typingTimeout = setTimeout(handleTypingTimeout, 1000);
+      typingTimeout = setTimeout(handleTypingTimeout, 500);
     }
 
     return () => {
