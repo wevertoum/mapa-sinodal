@@ -1,18 +1,21 @@
-import useDebouncedEvent from "@/hooks/useDebouncedEvent";
-import React, { useState } from "react";
+import useDebouncedCallback from "@/hooks/useDebouncedCallback";
+import React from "react";
 
 interface Props {}
 
 interface MockItem {
-  width: number;
-  color: string;
+  foo: string;
+  bar: string;
   id: number;
 }
 
 const DebounceLab: React.FC<Props> = () => {
-  const { isChanging, handleEvent } = useDebouncedEvent<MockItem>(
+  const { isChanging, handleEvent } = useDebouncedCallback<MockItem>(
     (typedValue) => {
-      console.log("Array send in the last 1000 milliseconds:", typedValue);
+      console.log(
+        "Array of type T stored during the last interval of interactions:",
+        typedValue
+      );
     },
     200
   );
@@ -22,13 +25,17 @@ const DebounceLab: React.FC<Props> = () => {
       <button
         className="bg-blue-500 text-white px-4 py-2 rounded"
         onClick={() =>
-          handleEvent({ width: 10, color: "red", id: Math.random() * 1000 })
+          handleEvent({
+            foo: "foo",
+            bar: "bar",
+            id: Math.random() * 1000,
+          })
         }
       >
-        send mock item
+        Click quickly and then stop to see the magic!
       </button>
       <small className="text-white">
-        {isChanging ? "sending..." : "not sending!"}
+        {isChanging ? "Sending events..." : "Not sending!"}
       </small>
     </div>
   );

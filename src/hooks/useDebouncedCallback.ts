@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 
-const useDebouncedEvent = <T>(
+const useDebouncedCallback = <T>(
   callback: (values: T[]) => void,
   delay: number = 500
 ) => {
@@ -45,4 +45,4 @@ const useDebouncedEvent = <T>(
   return { isChanging: state.isChanging, handleEvent };
 };
 
-export default useDebouncedEvent;
+export default useDebouncedCallback;

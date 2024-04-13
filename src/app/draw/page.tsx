@@ -1,6 +1,6 @@
 "use client";
 import DrawCanvas from "@/components/DrawCanvas";
-import useDebouncedEvent from "@/hooks/useDebouncedEvent";
+import useDebouncedCallback from "@/hooks/useDebouncedCallback";
 import { debounce } from "lodash";
 import React, { useCallback, useState } from "react";
 
@@ -11,7 +11,7 @@ const DrawPage: React.FC = () => {
     width: 5,
   });
 
-  const { isChanging, handleEvent } = useDebouncedEvent<Models.DrawedLine>(
+  const { isChanging, handleEvent } = useDebouncedCallback<Models.DrawedLine>(
     (arr) => {
       setDrawedLines(arr);
     },
