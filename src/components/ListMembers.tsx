@@ -12,7 +12,10 @@ interface ListMembersProps {
 }
 
 const ListMembers = ({ members, onRemove }: ListMembersProps) => {
-  const groupedMembers = useMemo(() => groupMembers(members), [members]);
+  const groupedMembers = useMemo(
+    () => groupMembers(members) as Models.AccommodationsMap,
+    [members]
+  );
 
   return (
     <div>

@@ -15,8 +15,7 @@ export default function CampingPage({ params }: CampingPageProps) {
   const [camp] = useDocument<Models.Camp>(`camps/${params.id_camp}`);
   const [accommodations] = useCollection<Models.Accommodation>(
     "/accommodations",
-    "id_camp",
-    params.id_camp
+    [{ field: "id_camp", value: params.id_camp }]
   );
 
   const sortedAccommodations = accommodations?.sort((a, b) =>

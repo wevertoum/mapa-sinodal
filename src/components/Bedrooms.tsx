@@ -44,7 +44,7 @@ const Bedrooms = ({ id_accommodation, id_camp }: BedroomsProps) => {
         console.error("Erro ao adicionar quarto: ", error);
       }
     },
-    [accommodation]
+    [add, bedrooms, id_camp]
   );
 
   const quartosMock = [
