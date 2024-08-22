@@ -2,12 +2,7 @@
 import FormCamp from "@/components/FormCamp";
 import useCollection from "@/hooks/firebase/useCollection";
 import { useCallback, useState } from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
 import ListCamps from "@/components/ListCamps";
 import { useRouter } from "next/navigation";
@@ -57,9 +52,7 @@ export default function CampsPage() {
           </Button>
         </div>
         <DialogContent>
-          <DialogHeader>
-            <FormCamp onSubmit={addCamp} />
-          </DialogHeader>
+          <FormCamp onSubmit={addCamp} />
         </DialogContent>
       </Dialog>
     </div>

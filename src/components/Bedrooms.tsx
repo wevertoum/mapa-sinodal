@@ -29,8 +29,8 @@ const Bedrooms = ({ id_accommodation, id_camp }: BedroomsProps) => {
     [
       {
         field: "id_accommodation",
-        operator: "==",
         value: id_accommodation,
+        operator: "==",
       },
     ]
   );
@@ -94,13 +94,11 @@ const Bedrooms = ({ id_accommodation, id_camp }: BedroomsProps) => {
                 <Button className={defaultButton}>Cadastrar um quarto</Button>
               </DialogTrigger>
               <DialogContent>
-                <DialogHeader>
-                  <FormBedroom
-                    onSubmit={addBedroom}
-                    id_accommodation={id_accommodation}
-                    id_camp={accommodation.id_camp}
-                  />
-                </DialogHeader>
+                <FormBedroom
+                  onSubmit={addBedroom}
+                  id_accommodation={id_accommodation}
+                  id_camp={accommodation.id_camp}
+                />
               </DialogContent>
             </Dialog>
 

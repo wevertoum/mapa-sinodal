@@ -47,8 +47,11 @@ const BedsList = ({ id_camp, accomodation, bedroom }: BedsListProps) => {
 
   const postMemberAndUpdateBedroom = useCallback(
     async (member: Models.Member) => {
-      if (verifyExistence(member.cpf)) {
-        showError("CPF já cadastrado");
+      const memberExist = verifyExistence(member.cpf);
+      if (memberExist) {
+        showError(
+          `Membro já cadastrado: ${memberExist.name}, em ${memberExist.name_bedroom}, ${memberExist.name_accommodation}`
+        );
         return;
       }
       addMember({
@@ -116,16 +119,14 @@ const BedsList = ({ id_camp, accomodation, bedroom }: BedsListProps) => {
               labelsGender[bedroom.gender || "M"].color
             } border-4`}
           >
-            <DialogHeader>
-              <FormBookRoom
-                gender={bedroom.gender}
-                titleBedroom={bedroom.name || ""}
-                accommodationName={accomodation.name || ""}
-                onSubmit={(member) => {
-                  postMemberAndUpdateBedroom(member);
-                }}
-              />
-            </DialogHeader>
+            <FormBookRoom
+              gender={bedroom.gender}
+              titleBedroom={bedroom.name || ""}
+              accommodationName={accomodation.name || ""}
+              onSubmit={(member) => {
+                postMemberAndUpdateBedroom(member);
+              }}
+            />
           </DialogContent>
         </Dialog>
       )}
@@ -146,10 +147,12 @@ const BedsList = ({ id_camp, accomodation, bedroom }: BedsListProps) => {
           </small>
         </div>
         <DialogContent>
-          <DialogHeader>Membros já inscritos nesse quarto</DialogHeader>
+          <DialogHeader>
+            Membros já presentes em {bedroom.name}, {accomodation.name}
+          </DialogHeader>
           <ShortListMembers
             id_camp={id_camp}
-            id_accomodation={accomodation.id}
+            id_accommodation={accomodation.id}
             id_bedroom={bedroom.id}
           />
         </DialogContent>

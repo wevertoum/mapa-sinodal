@@ -10,7 +10,6 @@ import {
   where,
   DocumentData,
   updateDoc,
-  QueryConstraint,
 } from "firebase/firestore";
 import firebase from "firebase/compat/app";
 
@@ -28,16 +27,11 @@ export const useCollection = <T,>(
   const ref = collection(db, path);
 
   useEffect(() => {
-    // Define manual filters
-    const idCamp = "4v7Lomxi3Hv6HS52yMhA";
-    const idAccommodation = "pCJR4whG7YKXMMPiq1aD";
-    const idBedroom = "jZ50I4Ivn6yRykWFemTE";
-
-    // Build the query manually based on these values
     let q = query(ref);
-    q = query(q, where("id_camp", "==", idCamp));
-    q = query(q, where("id_accomodation", "==", idAccommodation));
-    q = query(q, where("id_bedroom", "==", idBedroom));
+
+    filters.forEach((filter) => {
+      q = query(q, where(filter.field, filter.operator || "==", filter.value));
+    });
 
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const items: T[] = [];

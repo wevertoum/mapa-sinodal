@@ -29,7 +29,7 @@ const ListCamps = ({ camps, onRemove, onDetail }: ListCampsProps) => {
                 onClick={() => onDetail(camp.id)}
                 className={defaultButton}
               >
-                Detalhes
+                Gerenciar
               </Button>
             )}
             {onRemove && (

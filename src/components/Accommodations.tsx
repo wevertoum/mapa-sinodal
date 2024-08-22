@@ -1,12 +1,7 @@
 import useCollection from "@/hooks/firebase/useCollection";
 
 import { useCallback, useState } from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import FormAccommodation from "./FormAccommodation";
 import ListAccommodations from "./ListAccommodations";
 import { useRouter } from "next/navigation";
@@ -25,8 +20,7 @@ const Accommodations = ({ id_camp }: AccommodationsProps) => {
   const router = useRouter();
   const [accommodations, { add, remove }] = useCollection<Models.Accommodation>(
     "/accommodations",
-    "id_camp",
-    id_camp
+    [{ field: "id_camp", value: id_camp }]
   );
 
   const addAccommodation = useCallback(
@@ -72,9 +66,7 @@ const Accommodations = ({ id_camp }: AccommodationsProps) => {
           </Button>
         </div>
         <DialogContent>
-          <DialogHeader>
-            <FormAccommodation onSubmit={addAccommodation} />
-          </DialogHeader>
+          <FormAccommodation onSubmit={addAccommodation} />
         </DialogContent>
       </Dialog>
       <Separator className="my-4 bg-slate-500" />

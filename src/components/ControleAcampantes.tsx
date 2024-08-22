@@ -8,15 +8,15 @@ interface ControleAcampantesProps {
 }
 
 const ControleAcampantes = ({ id_camp }: ControleAcampantesProps) => {
-  const [members, { remove }] = useCollection<Models.Member>(
-    "/members",
-    "id_camp",
-    id_camp
-  );
+  const [members, { remove }] = useCollection<Models.Member>("/members", [
+    { field: "id_camp", value: id_camp },
+  ]);
 
   return (
     <div>
-      <h2 className="text-xl font-semibold mb-4">Relatório de acampantes alojados</h2>
+      <h2 className="text-xl font-semibold mb-4">
+        Relatório de acampantes alojados
+      </h2>
       {members && members?.length > 0 && (
         <ListMembers members={members} onRemove={remove} />
       )}
