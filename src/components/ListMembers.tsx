@@ -26,9 +26,10 @@ const ListMembers = ({ members, onRemove }: ListMembersProps) => {
 
             {Object.entries(accommodation.bedrooms).map(
               ([bedroomId, bedroom]) => (
-                <div className="w-full" key={bedroomId}>
-                  <small className="mb-4 ">{bedroom.name_bedroom}</small>
-
+                <div className="mb-4" key={bedroomId}>
+                  <h3 className="text-lg font-medium mb-4">
+                    {bedroom.name_bedroom}
+                  </h3>
                   <ListManageMembers
                     members={bedroom.members}
                     onRemove={onRemove}
