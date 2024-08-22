@@ -2,6 +2,7 @@
 import React from "react";
 import { useDocument } from "@/hooks/firebase/useDocument";
 import Bedrooms from "@/components/Bedrooms";
+import { defaultTextColor } from "@/utils/constants";
 
 interface DetailAccommodation {
   params: {
@@ -17,12 +18,12 @@ export default function DetailAccommodation({ params }: DetailAccommodation) {
 
   return (
     <div className="flex flex-col space-y-4 mt-8">
-      <h1 className="text-2xl font-bold text-gray-400 dark:text-white">
+      <h1 className={`text-2xl font-bold ${defaultTextColor}`}>
         {accommodation ? accommodation.name : "Carregando..."}
       </h1>
       {accommodation ? (
         <div>
-          <h2 className="text-lg font-semibold text-gray-400 dark:text-white mb-4">
+          <h2 className={`text-lg font-semibold mb-4 ${defaultTextColor}`}>
             Quartos do alojamento: {accommodation.name}
           </h2>
           <Bedrooms

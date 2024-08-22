@@ -2,6 +2,7 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Button } from "./ui/button";
 import { labelsGender } from "@/utils/labelsGender";
 import { sortBy } from "lodash";
+import { defaultTextColor } from "@/utils/constants";
 
 interface ListBedroomsProps {
   bedrooms: Models.Bedroom[] | null;
@@ -19,13 +20,12 @@ const ListBedrooms = ({ bedrooms, onRemove }: ListBedroomsProps) => {
           className="border rounded-lg p-4 mb-4 flex justify-between items-center dark:bg-gray-600"
         >
           <div>
-            <h2 className="text-xl text-gray-400 dark:text-white font-bold">
-              {bedroom.name}
+            <h2 className={`text-xl font-bold ${defaultTextColor}`}>
+              {bedroom.sequence}) {bedroom.name}
             </h2>
-            <p className="text-gray-400 dark:text-white">
-              Capacidade: {bedroom.capacity}
-            </p>
-            <p className="text-gray-400 dark:text-white">
+
+            <p className={defaultTextColor}>Capacidade: {bedroom.capacity}</p>
+            <p className={defaultTextColor}>
               Gênero permitido: {labelsGender[bedroom.gender].label}
             </p>
           </div>

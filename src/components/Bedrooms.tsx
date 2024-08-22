@@ -1,5 +1,4 @@
 import useCollection from "@/hooks/firebase/useCollection";
-
 import { useCallback, useState } from "react";
 import {
   Dialog,
@@ -13,6 +12,7 @@ import { useDocument } from "@/hooks/firebase/useDocument";
 import { defaultButton } from "@/utils/constants";
 import { EmptyContent } from "./EmptyContent";
 import { Button } from "./ui/button";
+import SampleJson from "./SampleJson";
 
 interface BedroomsProps {
   id_accommodation: string;
@@ -21,6 +21,9 @@ interface BedroomsProps {
 
 const Bedrooms = ({ id_accommodation, id_camp }: BedroomsProps) => {
   const [open, setOpen] = useState(false);
+  const [openMassiveBedrooms, setOpenMassiveBedrooms] = useState(false);
+  const [jsonInput, setJsonInput] = useState("");
+
   const [bedrooms, { add, remove }] = useCollection<Models.Bedroom>(
     "/bedrooms",
     "id_accommodation",
@@ -37,106 +40,36 @@ const Bedrooms = ({ id_accommodation, id_camp }: BedroomsProps) => {
         await add({
           ...bedroom,
           id_camp,
-          sequence: bedrooms?.length || 0 + 1,
+          sequence: bedrooms?.length ? bedrooms.length + 1 : 1,
         }).then(() => setOpen(false));
         return;
       } catch (error) {
         console.error("Erro ao adicionar quarto: ", error);
       }
     },
-    [accommodation]
+    [bedrooms, add, id_camp]
   );
 
-  const quartosMock = [
-    {
-      sequence: 1,
-      capacity: 8,
-      gender: "M",
-      id_accommodation,
-      id_camp,
-      name: "Quarto 1",
-    },
-    {
-      sequence: 2,
-      capacity: 10,
-      gender: "F",
-      id_accommodation,
-      id_camp,
-      name: "Quarto 2",
-    },
-    {
-      sequence: 3,
-      capacity: 8,
-      gender: "F",
-      id_accommodation,
-      id_camp,
-      name: "Quarto 3",
-    },
-    {
-      sequence: 4,
-      capacity: 10,
-      gender: "M",
-      id_accommodation,
-      id_camp,
-      name: "Quarto 4",
-    },
-    {
-      sequence: 5,
-      capacity: 8,
-      gender: "M",
-      id_accommodation,
-      id_camp,
-      name: "Quarto 5",
-    },
-    {
-      sequence: 6,
-      capacity: 10,
-      gender: "F",
-      id_accommodation,
-      id_camp,
-      name: "Quarto 6",
-    },
-    {
-      sequence: 7,
-      capacity: 8,
-      gender: "F",
-      id_accommodation,
-      id_camp,
-      name: "Quarto 7",
-    },
-    {
-      sequence: 8,
-      capacity: 10,
-      gender: "M",
-      id_accommodation,
-      id_camp,
-      name: "Quarto 8",
-    },
-    {
-      sequence: 9,
-      capacity: 8,
-      gender: "M",
-      id_accommodation,
-      id_camp,
-      name: "Quarto 9",
-    },
-    {
-      sequence: 10,
-      capacity: 10,
-      gender: "F",
-      id_accommodation,
-      id_camp,
-      name: "Quarto 10",
-    },
-  ] as Models.Bedroom[];
-
-  const massiveAdd = useCallback(async () => {
+  const handleMassiveAdd = useCallback(async () => {
     try {
-      await Promise.all(quartosMock.map((quarto) => add(quarto)));
+      const currentSequence = bedrooms?.length || 0;
+      const parsedData = JSON.parse(jsonInput) as Omit<
+        Models.Bedroom,
+        "id_accommodation" | "id_camp"
+      >[];
+      const bedroomsWithIds = parsedData.map((bedroom, sequence) => ({
+        ...bedroom,
+        id_accommodation,
+        id_camp,
+        sequence: currentSequence + sequence + 1,
+      }));
+
+      await Promise.all(bedroomsWithIds.map((bedroom) => add(bedroom)));
+      setOpenMassiveBedrooms(false);
     } catch (error) {
-      console.error("Erro ao adicionar quarto: ", error);
+      console.error("Erro ao adicionar quartos: ", error);
     }
-  }, [quartosMock]);
+  }, [jsonInput, id_accommodation, id_camp, bedrooms, add]);
 
   return (
     <>
@@ -148,30 +81,43 @@ const Bedrooms = ({ id_accommodation, id_camp }: BedroomsProps) => {
         <EmptyContent label="Sem quartos cadastrados" />
       )}
 
-      {/* <Button onClick={massiveAdd} className={defaultButton}>
-        Cadastro Massivo
-      </Button> */}
-
       {accommodation && (
-        <Dialog open={open} onOpenChange={setOpen}>
-          <div className="flex justify-start">
-            <Button className={defaultButton}>
-              <DialogTrigger onClick={() => setOpen(true)}>
-                Cadastrar quarto
+        <>
+          <div className="flex justify-start gap-6">
+            <Dialog open={open} onOpenChange={setOpen}>
+              <DialogTrigger asChild>
+                <Button className={defaultButton}>Cadastrar um quarto</Button>
               </DialogTrigger>
-            </Button>
-          </div>
+              <DialogContent>
+                <DialogHeader>
+                  <FormBedroom
+                    onSubmit={addBedroom}
+                    id_accommodation={id_accommodation}
+                    id_camp={accommodation.id_camp}
+                  />
+                </DialogHeader>
+              </DialogContent>
+            </Dialog>
 
-          <DialogContent>
-            <DialogHeader>
-              <FormBedroom
-                onSubmit={addBedroom}
-                id_accommodation={id_accommodation}
-                id_camp={accommodation.id_camp}
-              />
-            </DialogHeader>
-          </DialogContent>
-        </Dialog>
+            <Dialog
+              open={openMassiveBedrooms}
+              onOpenChange={setOpenMassiveBedrooms}
+            >
+              <DialogTrigger asChild>
+                <Button className={defaultButton}>Cadastro Massivo</Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <h3>Cadastro Massivo de Quartos</h3>
+                </DialogHeader>
+                <SampleJson onChange={setJsonInput} />
+                <Button onClick={handleMassiveAdd} className="mt-4">
+                  Cadastrar Quartos
+                </Button>
+              </DialogContent>
+            </Dialog>
+          </div>
+        </>
       )}
     </>
   );

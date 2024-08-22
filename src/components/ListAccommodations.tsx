@@ -1,6 +1,6 @@
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { Button } from "./ui/button";
-import { defaultButton } from "@/utils/constants";
+import { defaultButton, defaultTextColor } from "@/utils/constants";
 
 interface ListAccommodationsProps {
   accommodations: Models.Accommodation[] | null;
@@ -13,7 +13,6 @@ const ListAccommodations = ({
   onRemove,
   onDetail,
 }: ListAccommodationsProps) => {
-  
   const sortedAccommodations = accommodations?.sort((a, b) =>
     a.name > b.name ? 1 : -1
   );
@@ -26,7 +25,7 @@ const ListAccommodations = ({
           className="border rounded-lg p-4 mb-4 flex justify-between items-center dark:bg-gray-600"
         >
           <div>
-            <h2 className="text-xl text-gray-400 dark:text-white font-bold">
+            <h2 className={`text-xl font-bold ${defaultTextColor}`}>
               {accommodation.name}
             </h2>
           </div>

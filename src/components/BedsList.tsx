@@ -67,7 +67,16 @@ const BedsList = ({ id_camp, accomodation, bedroom }: BedsListProps) => {
         }).then(() => setOpen(false));
       });
     },
-    [addMember, addBed, bedroom]
+    [
+      verifyExistence,
+      addMember,
+      id_camp,
+      accomodation,
+      bedroom,
+      showError,
+      addBed,
+      bedsLength,
+    ]
   );
 
   const bedsArrayWithAvailability = useMemo(() => {

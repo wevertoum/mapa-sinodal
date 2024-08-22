@@ -8,6 +8,7 @@ import HorizontalMenu from "@/components/HorizontalMenu";
 import { Button } from "@/components/ui/button";
 import ToggleTheme from "@/components/ToggleTheme";
 import { Separator } from "@/components/ui/separator";
+import { defaultTextColor } from "@/utils/constants";
 
 export default function DashboardLayout({
   children,
@@ -40,7 +41,7 @@ export default function DashboardLayout({
     <div className="p-4 min-h-screen dark:bg-slate-800">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-2xl font-bold text-gray-400 dark:text-white">
+          <h1 className={`text-2xl font-bold  ${defaultTextColor}`}>
             Dashboard
           </h1>
           <p className="text-gray-500">Bem vindo ao painel de controle</p>

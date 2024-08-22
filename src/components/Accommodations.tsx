@@ -38,7 +38,7 @@ const Accommodations = ({ id_camp }: AccommodationsProps) => {
         console.error("Erro ao adicionar acomodação: ", error);
       }
     },
-    []
+    [add, id_camp]
   );
 
   const navigate = useCallback(
@@ -47,7 +47,7 @@ const Accommodations = ({ id_camp }: AccommodationsProps) => {
         `/dashboard/camps/${id_camp}/accommodations/${id_accommodation}`
       );
     },
-    [id_camp]
+    [id_camp, router]
   );
 
   return (

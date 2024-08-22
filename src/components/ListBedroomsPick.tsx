@@ -4,6 +4,7 @@ import { ManIcon } from "./icons/ManIcon";
 import { WomanIcon } from "./icons/WomanIcon";
 import { useTheme } from "next-themes";
 import BedsList from "./BedsList";
+import { defaultTextColor } from "@/utils/constants";
 
 interface ListBedroomsPickProps {
   id_camp: string;
@@ -42,9 +43,7 @@ const ListBedroomsPick = ({ id_camp, accomodation }: ListBedroomsPickProps) => {
                   color={theme === "dark" ? "white" : "black"}
                 />
               )}
-              <p className="text-gray-400 dark:text-white text-sm">
-                {bedroom.name}
-              </p>
+              <p className={`text-sm ${defaultTextColor}`}>{bedroom.name}</p>
             </div>
             <BedsList
               id_camp={id_camp}
