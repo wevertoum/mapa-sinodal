@@ -66,7 +66,6 @@ const BedsList = ({ id_camp, accomodation, bedroom }: BedsListProps) => {
         addBed({
           id_bedroom: bedroom.id,
           id_member: member.id,
-          sequence: bedsLength + 1,
         }).then(() => setOpenReservar(false));
       });
     },
@@ -78,15 +77,19 @@ const BedsList = ({ id_camp, accomodation, bedroom }: BedsListProps) => {
       bedroom,
       showError,
       addBed,
-      bedsLength,
     ]
   );
-
   const bedsArrayWithAvailability = useMemo(() => {
-    return _.range(bedroom.capacity || 0).map((i) => {
-      const bed = beds?.find((b) => b.sequence === i + 1);
-      return bed || { available: true };
-    }) as Models.Bed[];
+    const totalCapacity = bedroom.capacity || 0;
+    const occupiedBedsCount = beds?.length || 0;
+
+    const bedsArray = Array(totalCapacity).fill({ available: true });
+
+    for (let i = 0; i < occupiedBedsCount; i++) {
+      bedsArray[i] = { available: false };
+    }
+
+    return bedsArray;
   }, [bedroom, beds]);
 
   return (
@@ -94,11 +97,7 @@ const BedsList = ({ id_camp, accomodation, bedroom }: BedsListProps) => {
       <ErrorComponent />
       <div className="mt-2 grid grid-cols-4 gap-1">
         {bedsArrayWithAvailability.map((bed, i) => (
-          <BedItemPick
-            key={i}
-            available={bed.available || false}
-            id_member={bed.id_member || undefined}
-          />
+          <BedItemPick key={i} available={bed.available} />
         ))}
       </div>
 

@@ -18,7 +18,7 @@ const ControleAcampantes = ({ id_camp }: ControleAcampantesProps) => {
         Relatório de acampantes alojados
       </h2>
       {members && members?.length > 0 && (
-        <ListMembers members={members} onRemove={remove} />
+        <ListMembers remove={remove} members={members} id_camp={id_camp} />
       )}
     </div>
   );

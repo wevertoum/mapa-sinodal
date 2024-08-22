@@ -27,7 +27,13 @@ export default function CampingsPage({}: CampingsPageProps) {
           </h1>
         </div>
       </div>
-      {camps && <ListCamps camps={camps} onDetail={navigate} />}
+      {camps && (
+        <ListCamps
+          camps={camps}
+          onDetail={navigate}
+          label="Fazer reserva de quarto"
+        />
+      )}
     </DisplayContent>
   );
 }

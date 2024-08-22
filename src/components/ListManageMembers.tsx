@@ -3,10 +3,15 @@ import ItemManageMember from "./ItemManageMember";
 
 interface ListManageMembersProps {
   members: Models.Member[];
-  onRemove: (id: string) => void;
+  remove: (id: string) => Promise<void>;
+  id_camp: string;
 }
 
-const ListManageMembers = ({ members, onRemove }: ListManageMembersProps) => {
+const ListManageMembers = ({
+  members,
+  remove,
+  id_camp,
+}: ListManageMembersProps) => {
   return (
     <div>
       <table className="w-full p-4 text-sm text-left text-gray-500 dark:text-gray-400">
@@ -31,7 +36,8 @@ const ListManageMembers = ({ members, onRemove }: ListManageMembersProps) => {
             <ItemManageMember
               key={member.id}
               member={member}
-              onRemove={onRemove}
+              remove={remove}
+              id_camp={id_camp}
             />
           ))}
         </tbody>

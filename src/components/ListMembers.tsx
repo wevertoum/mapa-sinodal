@@ -6,10 +6,11 @@ import ListManageMembers from "./ListManageMembers";
 
 interface ListMembersProps {
   members: Models.Member[];
-  onRemove: (id: string) => void;
+  remove: (id: string) => Promise<void>;
+  id_camp: string;
 }
 
-const ListMembers = ({ members, onRemove }: ListMembersProps) => {
+const ListMembers = ({ members, remove, id_camp }: ListMembersProps) => {
   const groupedMembers = useMemo(
     () => groupMembers(members) as Models.AccommodationsMap,
     [members]
@@ -21,6 +22,7 @@ const ListMembers = ({ members, onRemove }: ListMembersProps) => {
         ([accommodationId, accommodation]) => (
           <div key={accommodationId}>
             <h2 className="text-2xl font-semibold mb-4">
+              {/* TODO: adicionar o feedback de quarto cheio para o adm */}
               {accommodation.name_accommodation}
             </h2>
 
@@ -32,7 +34,8 @@ const ListMembers = ({ members, onRemove }: ListMembersProps) => {
                   </h3>
                   <ListManageMembers
                     members={bedroom.members}
-                    onRemove={onRemove}
+                    remove={remove}
+                    id_camp={id_camp}
                   />
                 </div>
               )

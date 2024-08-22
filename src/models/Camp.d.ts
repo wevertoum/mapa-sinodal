@@ -17,7 +17,6 @@ namespace Models {
     available?: boolean;
     id_bedroom: string;
     id_member: string;
-    sequence: number;
   }
 
   interface Bedroom {

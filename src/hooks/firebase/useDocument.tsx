@@ -26,6 +26,7 @@ export const useDocument = <T,>(
     });
 
     return () => unsubscribe();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const set = useCallback(

@@ -15,6 +15,7 @@ interface PopConfirmProps {
   title: string;
   description: string;
   children: React.ReactNode;
+  disabled?: boolean;
 }
 
 const PopConfirm = ({
@@ -22,7 +23,11 @@ const PopConfirm = ({
   title,
   description,
   children,
+  disabled = false,
 }: PopConfirmProps) => {
+  if (disabled) {
+    return <>{children}</>;
+  }
   return (
     <AlertDialog>
       <AlertDialogTrigger>{children}</AlertDialogTrigger>
