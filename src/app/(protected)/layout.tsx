@@ -1,7 +1,7 @@
 "use client";
 import { useCallback } from "react";
 import { UsersIcon } from "@heroicons/react/24/outline";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useAuthContext } from "@/contexts/AuthContext";
 
 import HorizontalMenu from "@/components/HorizontalMenu";
@@ -16,13 +16,15 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const router = useRouter();
-  const pathname = usePathname();
   const { logOut } = useAuthContext();
 
-  const navigate = useCallback((url: string) => {
-    const prefixURl = "dashboard";
-    router.push(`/${prefixURl}/${url}`);
-  }, []);
+  const navigate = useCallback(
+    (url: string) => {
+      const prefixURl = "dashboard";
+      router.push(`/${prefixURl}/${url}`);
+    },
+    [router]
+  );
 
   const menuItens = [
     {
