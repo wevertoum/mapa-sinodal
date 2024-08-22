@@ -1,5 +1,3 @@
-// create react function component
-
 import { defaultTextColor } from "@/utils/constants";
 import React, { useState } from "react";
 

@@ -11,9 +11,12 @@ export default function CampingsPage({}: CampingsPageProps) {
   const [camps] = useCollection<Models.Camp>("/camps");
 
   const router = useRouter();
-  const navigate = useCallback((id: string) => {
-    router.push(`/campings/${id}/`);
-  }, []);
+  const navigate = useCallback(
+    (id: string) => {
+      router.push(`/campings/${id}/`);
+    },
+    [router]
+  );
 
   return (
     <DisplayContent>

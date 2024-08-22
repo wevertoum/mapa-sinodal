@@ -21,10 +21,6 @@ const NavBar: React.FC<Props> = () => {
       url: "/campings",
     },
     {
-      title: "Contato",
-      url: "/contact",
-    },
-    {
       title: "Login",
       url: "/signin",
     },

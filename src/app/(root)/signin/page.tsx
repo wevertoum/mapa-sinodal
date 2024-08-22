@@ -13,6 +13,7 @@ export default function SignInPage({ params }: SignInPageProps) {
 
   useEffect(() => {
     verifyIsLogged();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
