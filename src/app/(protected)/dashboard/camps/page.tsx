@@ -19,18 +19,24 @@ export default function CampsPage() {
   const [camps, { add, remove }] = useCollection<Models.Camp>("/camps");
   const [open, setOpen] = useState(false);
   const router = useRouter();
-  const addCamp = useCallback(async (camp: Models.Camp) => {
-    try {
-      await add(camp).then(() => setOpen(false));
-      return;
-    } catch (error) {
-      console.error("Erro ao adicionar acampamento: ", error);
-    }
-  }, []);
+  const addCamp = useCallback(
+    async (camp: Models.Camp) => {
+      try {
+        await add(camp).then(() => setOpen(false));
+        return;
+      } catch (error) {
+        console.error("Erro ao adicionar acampamento: ", error);
+      }
+    },
+    [add]
+  );
 
-  const navigate = useCallback((id: string) => {
-    router.push(`/dashboard/camps/${id}/`);
-  }, []);
+  const navigate = useCallback(
+    (id: string) => {
+      router.push(`/dashboard/camps/${id}/`);
+    },
+    [router]
+  );
 
   return (
     <div className="flex flex-col space-y-4">

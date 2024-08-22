@@ -2,7 +2,7 @@
 import DrawCanvas from "@/components/DrawCanvas";
 import useDebouncedCallback from "@/hooks/useDebouncedCallback";
 import { debounce } from "lodash";
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 
 const DrawPage: React.FC = () => {
   const [drawedLines, setDrawedLines] = useState<Models.DrawedLine[]>([]);

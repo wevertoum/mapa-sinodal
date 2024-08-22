@@ -1,13 +1,14 @@
 "use client";
 import { useCallback } from "react";
 import { UsersIcon } from "@heroicons/react/24/outline";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useAuthContext } from "@/contexts/AuthContext";
 
 import HorizontalMenu from "@/components/HorizontalMenu";
 import { Button } from "@/components/ui/button";
 import ToggleTheme from "@/components/ToggleTheme";
 import { Separator } from "@/components/ui/separator";
+import { defaultTextColor } from "@/utils/constants";
 
 export default function DashboardLayout({
   children,
@@ -15,13 +16,15 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const router = useRouter();
-  const pathname = usePathname();
   const { logOut } = useAuthContext();
 
-  const navigate = useCallback((url: string) => {
-    const prefixURl = "dashboard";
-    router.push(`/${prefixURl}/${url}`);
-  }, []);
+  const navigate = useCallback(
+    (url: string) => {
+      const prefixURl = "dashboard";
+      router.push(`/${prefixURl}/${url}`);
+    },
+    [router]
+  );
 
   const menuItens = [
     {
@@ -40,7 +43,7 @@ export default function DashboardLayout({
     <div className="p-4 min-h-screen dark:bg-slate-800">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-2xl font-bold text-gray-400 dark:text-white">
+          <h1 className={`text-2xl font-bold  ${defaultTextColor}`}>
             Dashboard
           </h1>
           <p className="text-gray-500">Bem vindo ao painel de controle</p>
