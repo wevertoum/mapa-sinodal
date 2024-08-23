@@ -35,7 +35,7 @@ const NavBar: React.FC<Props> = () => {
   };
 
   return (
-    <div className="bg-white dark:bg-slate-800 p-4 fixed top-0 w-full">
+    <div className="bg-white dark:bg-slate-800 p-4 fixed top-0 w-full z-30">
       <div className="flex justify-between">
         <div className="flex items-center">
           <LogoSinodal size={30} theme={theme} />
