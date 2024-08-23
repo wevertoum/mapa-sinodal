@@ -6,6 +6,8 @@ import { HomeIcon } from "@heroicons/react/24/outline";
 import ListBedroomsPick from "@/components/ListBedroomsPick";
 import { Bed } from "lucide-react";
 import { defaultTextColor } from "@/utils/constants";
+import SearchMember from "@/components/SearchMember";
+import { useEffect, useState } from "react";
 
 interface CampingPageProps {
   params: {
@@ -19,20 +21,30 @@ export default function CampingPage({ params }: CampingPageProps) {
     "/accommodations",
     [{ field: "id_camp", value: params.id_camp }]
   );
+  const [members] = useCollection<Models.Member>("/members", [
+    { field: "id_camp", value: params.id_camp },
+  ]);
+  const [targetMember, setTargetMember] = useState<Models.Member>();
 
   const sortedAccommodations = accommodations?.sort((a, b) =>
     a.name > b.name ? 1 : -1
   );
+
+  useEffect(() => {
+    if (targetMember) {
+      setTimeout(() => {
+        setTargetMember(undefined);
+      }, 5000);
+    }
+  }, [targetMember]);
 
   return (
     <div className="flex flex-col space-y-4 p-4">
       <h1 className={`text-2xl font-bold ${defaultTextColor}`}>
         {camp ? camp.name : "Carregando..."} - Realizar reserva de quarto
       </h1>
-      <Separator className="my-4 bg-slate-500" />
-
       <div>
-        <div className="flex items-center my-2">
+        <div className="flex items-center mb-2">
           <div className="h-4 w-4 flex justify-center items-center rounded-md bg-green-500 mr-2">
             <Bed size={10} />
           </div>
@@ -46,7 +58,11 @@ export default function CampingPage({ params }: CampingPageProps) {
         </div>
       </div>
       <Separator className="my-4 bg-slate-500" />
-
+      {members && (
+        <div className="w-full flex justify-center">
+          <SearchMember members={members} onFindMember={setTargetMember} />
+        </div>
+      )}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {sortedAccommodations?.map((accommodation) => (
           <div
@@ -61,10 +77,13 @@ export default function CampingPage({ params }: CampingPageProps) {
               </h2>
               <HomeIcon className={`h-6 w-6 ${defaultTextColor}`} />
             </div>
-            <ListBedroomsPick
-              id_camp={params.id_camp}
-              accomodation={accommodation}
-            />
+            <div className="w-full h-full flex flex-col">
+              <ListBedroomsPick
+                id_camp={params.id_camp}
+                accomodation={accommodation}
+                targetMember={targetMember}
+              />
+            </div>
           </div>
         ))}
       </div>
