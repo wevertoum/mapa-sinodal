@@ -46,7 +46,7 @@ export const AuthContextWrapper: React.FC<Props> = ({ children }) => {
     if (u) {
       router.push("/dashboard");
     }
-  }, [userData]);
+  }, [router]);
 
   const logOut = useCallback(async () => {
     deleteCookie("userData")
@@ -61,6 +61,7 @@ export const AuthContextWrapper: React.FC<Props> = ({ children }) => {
 
   useEffect(() => {
     getToken();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
