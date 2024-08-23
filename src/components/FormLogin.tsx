@@ -25,8 +25,8 @@ const FormLogin = ({ onSubmit, title }: FormLoginProps) => {
   const form = useForm({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
-      email: "wevertonmixalt@gmail.com",
-      password: "weverton123",
+      email: "",
+      password: "",
     },
     shouldFocusError: true,
   });
