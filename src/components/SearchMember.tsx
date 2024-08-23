@@ -16,11 +16,13 @@ import useCollection from "@/hooks/firebase/useCollection";
 interface SearchMemberProps {
   members?: Models.Member[];
   onFindMember?: (member: Models.Member) => void;
+  disabled?: boolean;
 }
 
 const SearchMember = ({
   members,
   onFindMember = () => {},
+  disabled = false,
 }: SearchMemberProps) => {
   const [open, setOpen] = React.useState(false);
 
@@ -32,6 +34,7 @@ const SearchMember = ({
     <>
       <>
         <Button
+          disabled={disabled}
           onClick={() => setOpen(true)}
           className="w-full md:w-1/2 lg:w-1/3"
         >

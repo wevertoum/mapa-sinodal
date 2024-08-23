@@ -7,7 +7,7 @@ import ListBedroomsPick from "@/components/ListBedroomsPick";
 import { Bed } from "lucide-react";
 import { defaultTextColor } from "@/utils/constants";
 import SearchMember from "@/components/SearchMember";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface CampingPageProps {
   params: {
@@ -25,12 +25,19 @@ export default function CampingPage({ params }: CampingPageProps) {
     { field: "id_camp", value: params.id_camp },
   ]);
   const [targetMember, setTargetMember] = useState<Models.Member>();
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   const sortedAccommodations = accommodations?.sort((a, b) =>
     a.name > b.name ? 1 : -1
   );
 
   useEffect(() => {
+    if (targetMember && scrollRef.current) {
+      scrollRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
     if (targetMember) {
       setTimeout(() => {
         setTargetMember(undefined);
@@ -60,7 +67,11 @@ export default function CampingPage({ params }: CampingPageProps) {
       <Separator className="my-4 bg-slate-500" />
       {members && (
         <div className="w-full flex justify-center">
-          <SearchMember members={members} onFindMember={setTargetMember} />
+          <SearchMember
+            members={members}
+            onFindMember={setTargetMember}
+            disabled={!!targetMember}
+          />
         </div>
       )}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -82,6 +93,7 @@ export default function CampingPage({ params }: CampingPageProps) {
                 id_camp={params.id_camp}
                 accomodation={accommodation}
                 targetMember={targetMember}
+                scrollRef={scrollRef} // Passa a referência
               />
             </div>
           </div>

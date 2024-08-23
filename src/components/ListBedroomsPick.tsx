@@ -10,12 +10,14 @@ interface ListBedroomsPickProps {
   id_camp: string;
   accomodation: Models.Accommodation;
   targetMember?: Models.Member;
+  scrollRef: React.RefObject<HTMLDivElement>; // Adicione a referência
 }
 
 const ListBedroomsPick = ({
   id_camp,
   accomodation,
   targetMember,
+  scrollRef,
 }: ListBedroomsPickProps) => {
   const [bedrooms] = useCollection<Models.Bedroom>("/bedrooms", [
     { field: "id_accommodation", value: accomodation.id },
@@ -29,12 +31,13 @@ const ListBedroomsPick = ({
       {sortedBedrooms?.map((bedroom) => (
         <div
           key={bedroom.id}
+          ref={targetMember?.id_bedroom === bedroom.id ? scrollRef : null} // Adiciona a referência
           className={`border-2 relative rounded-lg p-4 flex justify-center items-start dark:bg-gray-600 ${
             bedroom.gender === "M" ? "border-blue-500" : "border-pink-500"
           }`}
         >
           {targetMember?.id_bedroom === bedroom.id && (
-            <div className="absolute inset-0 flex items-center justify-center rounded-lg animate-pulse bg-yellow-300">
+            <div className="absolute inset-0 flex items-center justify-center rounded-lg animate-pulse bg-orange-600">
               <div className="w-full h-full rounded-lg"></div>
             </div>
           )}
