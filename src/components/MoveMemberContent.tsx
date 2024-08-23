@@ -50,6 +50,12 @@ const MoveMemberContent = ({
     const existingBeds = await getBedsFromBedroom(selectedBedroom.id);
 
     const fullBedroom = selectedBedroom.capacity === existingBeds.length;
+    const genderMatch = member.gender === selectedBedroom.gender;
+
+    if (!genderMatch) {
+      showError("Gênero do membro não compatível com o quarto.");
+      return;
+    }
 
     if (fullBedroom) {
       showError("Quarto cheio, selecione outro quarto.");

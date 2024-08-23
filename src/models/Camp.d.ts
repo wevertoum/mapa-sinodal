@@ -48,6 +48,7 @@ namespace Models {
     bedrooms: {
       [key: string]: {
         name_bedroom: string;
+        id_bedroom: string;
         members: Member[];
       };
     };

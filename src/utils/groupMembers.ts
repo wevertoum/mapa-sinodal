@@ -17,6 +17,7 @@ export const groupMembers = (
     if (!groupedData[id_accommodation].bedrooms[id_bedroom]) {
       groupedData[id_accommodation].bedrooms[id_bedroom] = {
         name_bedroom,
+        id_bedroom,
         members: [],
       };
     }

@@ -2,6 +2,7 @@
 
 import useCollection from "@/hooks/firebase/useCollection";
 import ListMembers from "./ListMembers";
+import { defaultTextColor } from "@/utils/constants";
 
 interface ControleAcampantesProps {
   id_camp: string;
@@ -14,7 +15,7 @@ const ControleAcampantes = ({ id_camp }: ControleAcampantesProps) => {
 
   return (
     <div>
-      <h2 className="text-xl font-semibold mb-4">
+      <h2 className={`text-xl font-semibold mb-4 ${defaultTextColor}`}>
         Relatório de acampantes alojados
       </h2>
       {members && members?.length > 0 && (
