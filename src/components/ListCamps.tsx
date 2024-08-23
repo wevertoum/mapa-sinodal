@@ -3,12 +3,18 @@ import { Button } from "./ui/button";
 import { defaultButton, defaultTextColor } from "@/utils/constants";
 
 interface ListCampsProps {
+  label?: string;
   camps: Models.Camp[] | null;
   onRemove?: (id: string) => void;
   onDetail?: (id: string) => void;
 }
 
-const ListCamps = ({ camps, onRemove, onDetail }: ListCampsProps) => {
+const ListCamps = ({
+  camps,
+  onRemove,
+  onDetail,
+  label = "Gerenciar",
+}: ListCampsProps) => {
   return (
     <div className="mt-8">
       {camps?.map((camp) => (
@@ -29,7 +35,7 @@ const ListCamps = ({ camps, onRemove, onDetail }: ListCampsProps) => {
                 onClick={() => onDetail(camp.id)}
                 className={defaultButton}
               >
-                Detalhes
+                {label}
               </Button>
             )}
             {onRemove && (

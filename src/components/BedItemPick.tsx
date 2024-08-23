@@ -2,10 +2,9 @@ import { Bed } from "lucide-react";
 
 interface BedItemPickProps {
   available: boolean;
-  id_member?: string;
 }
 
-export const BedItemPick = ({ available, id_member }: BedItemPickProps) => {
+export const BedItemPick = ({ available }: BedItemPickProps) => {
   return (
     <>
       <div

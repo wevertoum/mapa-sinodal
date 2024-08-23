@@ -100,9 +100,9 @@ const FormBookRoom = ({
                         {...field}
                         type="number"
                         disabled={pending}
-                        onChange={(event) =>
-                          field.onChange(+event.target.value)
-                        }
+                        onChange={(
+                          event: React.ChangeEvent<HTMLInputElement>
+                        ) => field.onChange(+event.target.value)}
                         placeholder="Digite a idade"
                       />
                     </FormControl>

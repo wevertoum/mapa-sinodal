@@ -26,8 +26,13 @@ const Bedrooms = ({ id_accommodation, id_camp }: BedroomsProps) => {
 
   const [bedrooms, { add, remove }] = useCollection<Models.Bedroom>(
     "/bedrooms",
-    "id_accommodation",
-    id_accommodation
+    [
+      {
+        field: "id_accommodation",
+        value: id_accommodation,
+        operator: "==",
+      },
+    ]
   );
 
   const [accommodation] = useDocument<Models.Accommodation>(
@@ -89,13 +94,11 @@ const Bedrooms = ({ id_accommodation, id_camp }: BedroomsProps) => {
                 <Button className={defaultButton}>Cadastrar um quarto</Button>
               </DialogTrigger>
               <DialogContent>
-                <DialogHeader>
-                  <FormBedroom
-                    onSubmit={addBedroom}
-                    id_accommodation={id_accommodation}
-                    id_camp={accommodation.id_camp}
-                  />
-                </DialogHeader>
+                <FormBedroom
+                  onSubmit={addBedroom}
+                  id_accommodation={id_accommodation}
+                  id_camp={accommodation.id_camp}
+                />
               </DialogContent>
             </Dialog>
 

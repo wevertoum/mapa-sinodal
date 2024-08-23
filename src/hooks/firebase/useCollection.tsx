@@ -1,5 +1,4 @@
 import { useState, useEffect, useCallback } from "react";
-import "firebase/storage";
 import { db } from "@/firebase/config";
 import {
   collection,
@@ -12,20 +11,27 @@ import {
   DocumentData,
   updateDoc,
 } from "firebase/firestore";
+import firebase from "firebase/compat/app";
+
+interface Filter {
+  field: string;
+  value: any;
+  operator?: firebase.firestore.WhereFilterOp;
+}
 
 export const useCollection = <T,>(
   path: string,
-  filterField?: keyof T,
-  filterValue?: string
+  filters: Filter[] = []
 ): [T[] | null, Models.CollectionActions<T>] => {
   const [state, setState] = useState<T[] | null>(null);
   const ref = collection(db, path);
 
   useEffect(() => {
     let q = query(ref);
-    if (filterField && filterValue) {
-      q = query(ref, where(filterField as string, "==", filterValue));
-    }
+
+    filters.forEach((filter) => {
+      q = query(q, where(filter.field, filter.operator || "==", filter.value));
+    });
 
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const items: T[] = [];
@@ -36,7 +42,8 @@ export const useCollection = <T,>(
     });
 
     return () => unsubscribe();
-  }, [path, filterField, filterValue]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [path]);
 
   const add = useCallback(
     async (data: T): Promise<T> => {

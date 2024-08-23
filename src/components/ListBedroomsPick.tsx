@@ -12,11 +12,9 @@ interface ListBedroomsPickProps {
 }
 
 const ListBedroomsPick = ({ id_camp, accomodation }: ListBedroomsPickProps) => {
-  const [bedrooms] = useCollection<Models.Bedroom>(
-    "/bedrooms",
-    "id_accommodation",
-    accomodation.id
-  );
+  const [bedrooms] = useCollection<Models.Bedroom>("/bedrooms", [
+    { field: "id_accommodation", value: accomodation.id },
+  ]);
   const { theme } = useTheme();
 
   const sortedBedrooms = _.sortBy(bedrooms, "sequence");

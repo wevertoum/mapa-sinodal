@@ -1,3 +1,4 @@
+import { validateCPF } from "@/utils/validateCPF";
 import * as z from "zod";
 
 export const RegisterCampSchema = z.object({
@@ -43,13 +44,18 @@ export const BookRoomSchema = z.object({
   age: z
     .number()
     .int()
-    .min(1, {
-      message: "Idade mínima é 1",
+    .min(16, {
+      message: "Mínimo de 16 anos",
     })
-    .max(120, {
-      message: "Idade máxima é 120",
+    .max(100, {
+      message: "Por favor, insira uma idade válida",
     }),
-  cpf: z.string().regex(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/, {
-    message: "Por favor, insira um CPF válido (formato: 000.000.000-00)",
-  }),
+  cpf: z
+    .string()
+    .regex(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/, {
+      message: "Por favor, insira um CPF válido (formato: 000.000.000-00)",
+    })
+    .refine((cpf) => validateCPF(cpf), {
+      message: "CPF inválido",
+    }),
 });

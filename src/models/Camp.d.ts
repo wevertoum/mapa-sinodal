@@ -17,7 +17,6 @@ namespace Models {
     available?: boolean;
     id_bedroom: string;
     id_member: string;
-    sequence: number;
   }
 
   interface Bedroom {
@@ -49,6 +48,7 @@ namespace Models {
     bedrooms: {
       [key: string]: {
         name_bedroom: string;
+        id_bedroom: string;
         members: Member[];
       };
     };
